@@ -9,7 +9,7 @@
     app.use(cors());
 app.use(express.json());
 
-const db = new sqlite3.Database('../src/DataBase/Stuff.sqlite', (err) => {
+const db = new sqlite3.Database("./my-app-backend/Stuff.sqlite", (err) => {
     if (err) {
         console.error('Could not connect to database', err);
     } else {
@@ -17,12 +17,12 @@ const db = new sqlite3.Database('../src/DataBase/Stuff.sqlite', (err) => {
     }
 });
 
-// Create a table if it doesn't exist
-db.run('CREATE TABLE test (id INTEGER PRIMARY KEY, data TEXT)', (err) => {
-    if (err) {
-        console.error('Error creating table', err);
-    }
-});
+//Create a table if it doesn't exist
+//db.run('CREATE TABLE test (id INTEGER PRIMARY KEY, data TEXT)', (err) => {
+  // if (err) {
+ //      console.error('Error creating table', err);
+ //  }
+//});
 
 // API Endpoints
 app.get('/api/data', (req, res) => {

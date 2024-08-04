@@ -30,6 +30,13 @@ function Body(){
     };
     return (
         <div>
+            <label for="cars">Choose a car:</label>
+            <select name="cars" id="cars">
+                {data.map(item =>(
+                     <option key={item.id}>{item.data}</option>
+                ))}
+           
+            </select>
             <h1>Data from SQLite</h1>
             <input 
                 type="text" 
