@@ -3,11 +3,6 @@ function App(){
 
     return(<>
     <Header/>
-
-    
-<script src='./ryan.js'></script>
-    
-    
   
     </>
        

@@ -1,19 +1,20 @@
-function Header(){
+import React from 'react'
 
-return(
-    <header>
-        <h1>my website</h1>
-        <nav>
-            <ul>
-                <li><a href="#"></a>Home</li>
-                <li><a href="#"></a>About</li>
-                <li><a href="#"></a>Services</li>
-                <li><a href="#"></a>Contacts</li>
-            </ul>
-        </nav>
-        <hr></hr>
-    </header>
-);
-}
 
-export default Header
+
+class Header extends React.Component {
+    handleClick = () => {
+      this.forceUpdate();
+    };
+  
+    render() {
+      return (
+        <div>
+          <button onClick={this.handleClick}>Click to re-render</button>
+          <p>{Math.random()}</p>
+        </div>
+      );
+    }
+  }
+
+  export default Header
