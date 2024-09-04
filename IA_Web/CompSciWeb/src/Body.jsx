@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import axios from '../my-app-backend/node_modules/axios';
+import axios from '../node_modules/axios';
 import './Body.css';
 
 
