@@ -3,8 +3,10 @@ import axios from '../node_modules/axios';
 import './Body.css';
 
 
-function Body(){
+class Body extends React.Component{
 
+
+    render(){
     const [data, setData] = useState([]);
     const [inputQuery, setInputQuery] = useState('');
 
@@ -19,6 +21,7 @@ function Body(){
                     setData([]);  // Clear the data if an error occurs
                 });
         }
+
 
     };
     
@@ -65,6 +68,8 @@ function Body(){
             </div>
         </div>
     );
+
+}
 }
 
 

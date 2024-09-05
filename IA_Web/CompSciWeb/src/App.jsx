@@ -1,15 +1,16 @@
-import Body from './Body'
-import StudentScreen from './StudentScreen'
+import Body from './Body.jsx'
+import StudentScreen from './StudentScreen.jsx'
+
 
 function App() {
-  
-
   return (
-    <>
+    <>  
       
-      <StudentScreen/>
+     <Body/>
+
     </>
-  )
+  );
+
 }
 
 export default App

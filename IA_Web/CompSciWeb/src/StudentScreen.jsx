@@ -1,16 +1,16 @@
-import './StudentScreen.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Assignment from './Assignment.jsx';
-import { render } from 'react-dom';
-import { renderToPipeableStream } from 'react-dom/server';
+import './StudentScreen.css'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Assignment from './Assignment'
 
-function StudentScreen(){
 
+class StudentScreen extends React.Component{
+
+    render(){
     const [data, setData] = useState([]);
     const [input, setInput] = useState('');
-    let ID = 0;
-    let assignmentScreen = false;
+     ID = 0;
+     assignmentScreen = false;
     useEffect(() => {
         axios.get('http://localhost:3001/api/data')
             .then(response => {
@@ -82,6 +82,7 @@ function StudentScreen(){
 
     
 
+    }
 }
 
 export default StudentScreen
