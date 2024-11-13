@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from "react-dom/client";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,11 +7,11 @@ import {
 } from "react-router-dom";
 
 // import Home component
-import Home from './Home.jsx'
+import Home from "./Home";
 // import About component
-import About from './About.jsx'
+import About from "./About";
 // import ContactUs component
-import ContactUs from './ContactUs.jsx'
+import ContactUs from "./ContactUs";
 
 
 class Header extends React.Component {
@@ -21,8 +20,7 @@ class Header extends React.Component {
     };
   
     render() {
-      <>
-      
+
       <Router>
       <Routes>
           {/* This route is for home component 
@@ -60,7 +58,6 @@ and redirects app to home component with to="/" */}
           />
       </Routes>
   </Router>
-  </>
   }
 
 
