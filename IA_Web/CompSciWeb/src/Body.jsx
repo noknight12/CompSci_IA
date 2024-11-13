@@ -1,10 +1,16 @@
 import React, { useState} from 'react';
 import axios from '../node_modules/axios';
+
+import StudentScreen from './StudentScreen';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './Body.css';
 
 
 function Body(){
 
+
+    
     const [data, setData] = useState([]);
     const [inputQuery, setInputQuery] = useState('');
 
@@ -20,6 +26,7 @@ function Body(){
                 });
         }
 
+
     };
     
 
@@ -27,8 +34,23 @@ function Body(){
    
   
     return (
+
+       
         <div id='container'>
 
+            <BrowserRouter>
+            <Routes>
+            <Route path="/" element={<StudentScreen/>}>
+            
+            </Route>
+            
+
+            </Routes>
+            
+            </BrowserRouter>
+            <nav>
+            <Link to="/">Home</Link>
+            </nav>
             <div id='side'>
                 <label for="cars">Choose a car:</label>
               <select name="cars" id="cars">
@@ -65,7 +87,9 @@ function Body(){
             </div>
         </div>
     );
+
 }
+
 
 
 export default Body

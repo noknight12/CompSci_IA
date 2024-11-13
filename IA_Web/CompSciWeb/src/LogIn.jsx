@@ -1,15 +1,19 @@
-function LogIn(){
+import React, { useState, useEffect }from 'react'
 
 
+class LogIn extends React.Component{
 
+
+render(){
     return(
-<>
-<div>
-    
-</div>
-</>
-    )
+        <>
+        <div>
+            hi
+        </div>
+        </>
+          );
 
+}
 }
 
 export default LogIn

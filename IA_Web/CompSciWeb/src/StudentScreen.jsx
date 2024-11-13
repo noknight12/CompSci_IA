@@ -1,12 +1,13 @@
 import './StudentScreen.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Assignment from './Assignment.jsx';
-import { render } from 'react-dom';
-import { renderToPipeableStream } from 'react-dom/server';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
-function StudentScreen(){
 
+
+    
+    function StudentScreen(){
+
+const [refresh, setRefresh] = useState(0);
     const [data, setData] = useState([]);
     const [input, setInput] = useState('');
     let ID = 0;
@@ -42,8 +43,9 @@ function StudentScreen(){
         console.log(event.target.getAttribute('a-key'));
         assignmentScreen = true;
         console.log(assignmentScreen)
-        this.forceUpdate()
-        return(<Assignment/>);
+        setRefresh(refresh + 1);
+        
+        
          
       };
 
@@ -52,7 +54,7 @@ function StudentScreen(){
       console.log("grass");
       if(assignmentScreen == true){
         
-        return(<Assignment/>);
+     
       }
       else{
         return(
@@ -80,8 +82,10 @@ function StudentScreen(){
       }
     
 
+    }
+
     
 
-}
+
 
 export default StudentScreen
