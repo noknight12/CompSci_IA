@@ -1,15 +1,10 @@
 import React from "react";
 
 
-class ContactUs extends React.Component{
 
-
-    render(){
-
-        <>
-        <h>ContactUs</h>
-        </>
-    }
-}
+const ContactUs = () => {
+    return <h1>Contact Me</h1>;
+  };
+  
 
 export default ContactUs

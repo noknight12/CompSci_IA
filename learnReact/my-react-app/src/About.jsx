@@ -6,9 +6,9 @@ class About extends React.Component{
 
     render(){
 
-        <>
+        
         <h>About</h>
-        </>
+        
     }
 }
 

@@ -1,9 +1,41 @@
-import Header from './Header.jsx'
+import React from 'react';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Layout from './Layout.jsx';
+
+import Header from './Header.jsx';
+// import Home component
+import Home from './Home.jsx';
+// import About component
+import About from './About.jsx';
+// import ContactUs component
+import ContactUs from './ContactUs.jsx';
+
+import NoPage from './NoPage.jsx';
+
 
 function App(){
 
     return(<>
-    <Header/>
+   <BrowserRouter>
+      <Routes>
+       
+      <Route path="/" element={<Layout />}>
+          <Route index element={<Home />}  />
+
+      
+          <Route path="/about"element={<About />}/>
+
+          <Route path="/contactus"element={<ContactUs />}/>
+
+        
+          <Route
+              path="*"element={<NoPage />}/>
+
+    </Route>
+      </Routes>
+      </BrowserRouter>
   
     </>
        
