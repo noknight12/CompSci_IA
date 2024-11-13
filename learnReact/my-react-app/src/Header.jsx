@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 
 // import Home component
-import Home from "./components/Home";
+import Home from "./Home";
 // import About component
-import About from "./components/About";
+import About from "./About";
 // import ContactUs component
-import ContactUs from "./components/ContactUs";
+import ContactUs from "./ContactUs";
 
 
 class Header extends React.Component {
