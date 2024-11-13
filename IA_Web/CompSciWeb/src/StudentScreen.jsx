@@ -1,16 +1,17 @@
-import './StudentScreen.css'
+import './StudentScreen.css';
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Assignment from './Assignment'
 
 
-class StudentScreen extends React.Component{
 
-    render(){
+    
+    function StudentScreen(){
+
+const [refresh, setRefresh] = useState(0);
     const [data, setData] = useState([]);
     const [input, setInput] = useState('');
-     ID = 0;
-     assignmentScreen = false;
+    let ID = 0;
+    let assignmentScreen = false;
     useEffect(() => {
         axios.get('http://localhost:3001/api/data')
             .then(response => {
@@ -42,8 +43,9 @@ class StudentScreen extends React.Component{
         console.log(event.target.getAttribute('a-key'));
         assignmentScreen = true;
         console.log(assignmentScreen)
-        this.forceUpdate()
-        return(<Assignment/>);
+        setRefresh(refresh + 1);
+        
+        
          
       };
 
@@ -52,7 +54,7 @@ class StudentScreen extends React.Component{
       console.log("grass");
       if(assignmentScreen == true){
         
-        return(<Assignment/>);
+     
       }
       else{
         return(
@@ -80,9 +82,10 @@ class StudentScreen extends React.Component{
       }
     
 
+    }
+
     
 
-    }
-}
+
 
 export default StudentScreen
