@@ -3,7 +3,20 @@ import React from "react";
 
 
 const AssginmentScreen = () => {
-    return <h1>Assignment</h1>;
+    return <>
+    <p>profile</p>
+
+    <hr />
+
+    <h>AssignmentName</h>
+
+    <p>Description</p>
+
+    <p>subbmission bar</p>
+    
+    
+    
+    </>;
   };
   
 
