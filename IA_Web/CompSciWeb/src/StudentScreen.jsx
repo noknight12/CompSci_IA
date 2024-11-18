@@ -1,13 +1,16 @@
 import './StudentScreen.css';
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Outlet, Link } from "react-router-dom";
 
 
 
-    
-    function StudentScreen(){
 
-const [refresh, setRefresh] = useState(0);
+
+
+    const StudentScreen = () => {
+
+    const [refresh, setRefresh] = useState(0);
     const [data, setData] = useState([]);
     const [input, setInput] = useState('');
     let ID = 0;
@@ -68,15 +71,18 @@ const [refresh, setRefresh] = useState(0);
                 <div id='verticalLine'></div>
                 <div id="dataPanel">
                 
-    
+                
                 <ul id='list'>
                     {data.map(item => (
                         
-                        <button id='items' a-key={item.id} key={item.id}  onClick={sayHi }><div id='image'></div>{item.data} {item.id}</button>
+                        <button id='items' a-key={item.id} key={item.id}  onClick={sayHi }><div id='image'></div>{item.data} {item.id} <Link to="/assignmentScreen"> Assignment</Link> </button>
                     ))}
                      
                 </ul>
+               
+              
                 </div>
+                <Outlet />
             </div>
         );
       }

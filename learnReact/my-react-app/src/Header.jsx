@@ -1,64 +1,43 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import React from 'react';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Layout from './Layout.jsx';
+
 
 // import Home component
-import Home from "./Home";
+import Home from './Home.jsx';
 // import About component
-import About from "./About";
+import About from './About.jsx';
 // import ContactUs component
-import ContactUs from "./ContactUs";
+import ContactUs from './ContactUs.jsx';
+
+import NoPage from './NoPage.jsx';
 
 
-class Header extends React.Component {
-    handleClick = () => {
-      this.forceUpdate();
-    };
-  
-    render() {
+function Header(){
+   
+  return(
 
-      <Router>
+      <BrowserRouter>
       <Routes>
-          {/* This route is for home component 
-with exact path "/", in component props 
-we passes the imported component*/}
-          <Route
-              exact
-              path="/"
-              element={<Home />}
-          />
+       
+      <Route path="/" element={<Layout />}>
+          <Route index element={<Home />}  />
 
-          {/* This route is for about component 
-with exact path "/about", in component 
-props we passes the imported component*/}
-          <Route
-              path="/about"
-              element={<About />}
-          />
+      
+          <Route path="/about"element={<About />}/>
 
-          {/* This route is for contactus component
-with exact path "/contactus", in 
-component props we passes the imported component*/}
-          <Route
-              path="/contactus"
-              element={<ContactUs />}
-          />
+          <Route path="/contactus"element={<ContactUs />}/>
 
-          {/* If any route mismatches the upper 
-route endpoints then, redirect triggers 
-and redirects app to home component with to="/" */}
-          {/* <Redirect to="/" /> */}
+        
           <Route
-              path="*"
-              element={<Navigate to="/" />}
-          />
+              path="*"element={<NoPage />}/>
+
+    </Route>
       </Routes>
-  </Router>
-  }
+      </BrowserRouter>
+  )
 
 
 };
