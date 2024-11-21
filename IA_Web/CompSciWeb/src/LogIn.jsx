@@ -1,23 +1,32 @@
 import React, { useState } from "react";
+import axios from '../node_modules/axios';
 
 function LogIn(){
-    const handleSearch = () => {
-        if (inputQuery) {
-            axios.get('http://localhost:3001/api/search', { params: { query: inputQuery } })
-                .then(response => {
-                    setData(response.data);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    setData([]);  // Clear the data if an error occurs
-                });
-        }
-
-
-    };
+   
+    const [data, setData] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const handleSearch = () => {
+    if (email) {
+        axios.get('http://localhost:3001/api/search', { params: { query: email } })
+            .then(response => {
+                setData(response.data);
+               if(data.length == 0){
+                console.log("hi");
+               }
+                   
+                
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setData([]);  // Clear the data if an error occurs
+            });
+    }
+
+
+};
  
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +51,7 @@ function LogIn(){
         <div style={styles.field}>
           <label>Email</label>
           <input
-            type="email"
+            type="text"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -59,7 +68,7 @@ function LogIn(){
             style={styles.input}
           />
         </div>
-        <button type="submit" style={styles.button}>
+        <button type="submit" style={styles.button} onClick={handleSearch}>
           Login
         </button>
       </form>

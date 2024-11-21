@@ -36,28 +36,7 @@ function Body(){
     return (
 
        
-        <div id='container'>
-
-            <BrowserRouter>
-            <Routes>
-            <Route path="/" element={<StudentScreen/>}>
-            
-            </Route>
-            
-
-            </Routes>
-            
-            </BrowserRouter>
-            <nav>
-            <Link to="/">Home</Link>
-            </nav>
-            <div id='side'>
-                <label for="cars">Choose a car:</label>
-              <select name="cars" id="cars">
-              
-                
-             </select>
-             </div>
+       
               <div id='Plane'>
                 
                 <h1>Data from SQLite</h1>
@@ -85,7 +64,7 @@ function Body(){
             
           
             </div>
-        </div>
+       
     );
 
 }
