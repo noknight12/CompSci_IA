@@ -1,19 +1,118 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState } from "react";
+
+function LogIn(){
+    const handleSearch = () => {
+        if (inputQuery) {
+            axios.get('http://localhost:3001/api/search', { params: { query: inputQuery } })
+                .then(response => {
+                    setData(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    setData([]);  // Clear the data if an error occurs
+                });
+        }
 
 
-class LogIn extends React.Component{
+    };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError(""); // Clear previous errors
 
+    // Basic validation
+    if (!email || !password) {
+      setError("Email and password are required");
+      return;
+    }
 
-render(){
-    return(
-        <>
-        <div>
-            hi
+    // Simulate API call
+    console.log("Logging in with:", { email, password });
+    alert("Login successful!");
+  };
+
+  return (
+    <div style={styles.container}>
+      <form style={styles.form} onSubmit={handleSubmit}>
+        <h2 style={styles.header}>Login</h2>
+        {error && <p style={styles.error}>{error}</p>}
+        <div style={styles.field}>
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={styles.input}
+          />
         </div>
-        </>
-          );
+        <div style={styles.field}>
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={styles.input}
+          />
+        </div>
+        <button type="submit" style={styles.button}>
+          Login
+        </button>
+      </form>
+    </div>
+  
+  );
+};
 
-}
-}
+const styles = {
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    backgroundColor: "#f7f7f7",
+  },
+  form: {
+    padding: "20px",
+    backgroundColor: "#fff",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+    borderRadius: "5px",
+    width: "300px",
+  },
+  header: {
+    textAlign: "center",
+    marginBottom: "20px",
+  },
+  field: {
+    marginBottom: "15px",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginTop: "5px",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+  },
+  button: {
+    width: "100%",
+    padding: "10px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+  },
+  error: {
+    color: "red",
+    marginBottom: "10px",
+    textAlign: "center",
+  },
+};
+
+
 
 export default LogIn

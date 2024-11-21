@@ -1,18 +1,23 @@
 import { Outlet, Link } from "react-router-dom";
+import './Structure.css';
 
 const Structure = () => {
   return (
     <>
      <nav>
-        <ul>
-          <li>
+          <div id='pages'>
+          <p>
             <Link to="/">StudentScreen</Link>
-          </li>
-          <li>
+          </p>
+          <br></br>
+          <p>
             <Link to="/assignmentscreen">AssignmentScreen</Link>
-          </li>
-         
-        </ul>
+          </p>
+          </div>
+          <div id='verticalLine'></div>
+
+          <div id="dataPanel"></div>
+        
       </nav>
 
       <Outlet />

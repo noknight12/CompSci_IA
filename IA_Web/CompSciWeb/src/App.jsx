@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Structure from './Structure.jsx'
 import AssginmentScreen from './AssginmentScreen.jsx';
+import LogIn from './LogIn.jsx';
 
 
 // import Home component
@@ -19,7 +20,7 @@ function App() {
     <>
      <BrowserRouter>
      <Routes>
-      <Route path="/" element={<Structure />}>
+      <Route path="/" element={<LogIn />}>
 
       <Route index element={<StudentScreen />}  />
 

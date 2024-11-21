@@ -63,13 +63,13 @@ import { Outlet, Link } from "react-router-dom";
         return(
            
 
-            <div id="background">
+            <div>
                 
-                <div id="sidebar">
+               
                 
-                </div>
-                <div id='verticalLine'></div>
-                <div id="dataPanel">
+                
+                
+               
                 
                 
                 <ul id='list'>
@@ -81,7 +81,7 @@ import { Outlet, Link } from "react-router-dom";
                 </ul>
                
               
-                </div>
+               
                 <Outlet />
             </div>
         );
