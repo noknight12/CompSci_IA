@@ -8,27 +8,38 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Structure from './Structure.jsx'
 import AssginmentScreen from './AssginmentScreen.jsx';
 import LogIn from './LogIn.jsx';
-
+import Nothing from './nothing.jsx';
 
 // import Home component
 
 
 function App() {
-  
+  localStorage.setItem("username", 1)
 
   return (
     <>
+    {
+    /*
      <BrowserRouter>
      <Routes>
-      <Route path="/" element={<LogIn />}>
+      <Route path="/" element={<Nothing/>}>
 
-      <Route index element={<StudentScreen />}  />
-
-      <Route path="/assignmentscreen" element={<AssginmentScreen />} />
+      <Route index element={<LogIn />}  />
+      
+      
+      
+      </Route>
+      <Route path="/index" element={<Structure/>} >
+      <Route index element={<AssginmentScreen />} />
       </Route>
      </Routes>
      </BrowserRouter>
-   
+     */
+     }
+
+    <AssginmentScreen />
+
+     
     </>
   )
 }

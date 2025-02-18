@@ -11,7 +11,7 @@ function Body(){
 
 
     
-    const [data, setData] = useState([]);
+   
     const [inputQuery, setInputQuery] = useState('');
 
     const handleSearch = () => {

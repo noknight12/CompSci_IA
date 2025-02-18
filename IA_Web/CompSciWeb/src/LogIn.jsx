@@ -1,22 +1,33 @@
 import React, { useState } from "react";
 import axios from '../node_modules/axios';
+import VariableManager from "./VariableManager";
+
+import { useNavigate, Outlet, Link  } from 'react-router-dom';
 
 function LogIn(){
    
-    const [data, setData] = useState([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [data, setData] = useState([]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
+  
   const handleSearch = () => {
     if (email) {
-        axios.get('http://localhost:3001/api/search', { params: { query: email } })
+        axios.get('http://localhost:3001/api/search', { params: { query: email, pass: password }})
             .then(response => {
                 setData(response.data);
-               if(data.length == 0){
-                console.log("hi");
-               }
+                console.log(email);
+                console.log(password);
+              console.log(data.length);
+                   if(data.length == 1){
+                  
+                    
+                      VariableManager(email);
+                      navigate("/index");
+                    console.log("hi");
                    
+                   }
                 
             })
             .catch(error => {
@@ -49,10 +60,10 @@ function LogIn(){
         <h2 style={styles.header}>Login</h2>
         {error && <p style={styles.error}>{error}</p>}
         <div style={styles.field}>
-          <label>Email</label>
+          <label>UserName</label>
           <input
             type="text"
-            placeholder="Enter your email"
+            placeholder="Enter your Username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             style={styles.input}
@@ -61,7 +72,7 @@ function LogIn(){
         <div style={styles.field}>
           <label>Password</label>
           <input
-            type="password"
+            type="text"
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -71,7 +82,9 @@ function LogIn(){
         <button type="submit" style={styles.button} onClick={handleSearch}>
           Login
         </button>
+       
       </form>
+      <Outlet />
     </div>
   
   );

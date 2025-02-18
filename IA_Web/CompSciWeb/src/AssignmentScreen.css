@@ -1,0 +1,73 @@
+#background{
+    
+    display: flex;
+    -ms-flex-align: left;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    color: black;
+    background-color:rgb(255, 255, 255);;
+   
+}
+
+
+
+#book{
+    
+    height: 8vw;
+    width: 8vw;
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.btn {
+    border: none;
+    background-color: transparent;
+    font-weight:normal;
+    font-size:4vh;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    display: inline-block;
+  }
+  
+  /* On mouse-over */
+  .btn:hover{
+    background-color: rgba(68, 68, 68, 0.16);
+  }
+  .btn:focus{
+    outline: none;
+    box-shadow: none;
+    
+  }
+  
+ #AssignmentsData{
+    display: none;
+    font-size:large;
+    
+}
+#ClassesData{
+    display: none;
+}
+#messagesData{
+    display: none;
+}
+
+#verticalLine{
+   
+    height: 100vh;
+    width: 2px;
+    background-color: rgb(184, 184, 184);
+    
+    
+}
+
+#dataPanel{
+    width: 85vw; 
+    height: 90vh;
+    background-color: rgb(255, 255, 255);
+   
+   
+   
+    
+}

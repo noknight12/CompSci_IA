@@ -1,4 +1,6 @@
 
+    global.myNumber;
+    global.myNumber = 0;
 
     const express = require('express');
     const sqlite3 = require('sqlite3').verbose();
@@ -26,7 +28,7 @@ const db = new sqlite3.Database("./my-app-backend/Stuff.sqlite", (err) => {
 
 //API Endpoints
  app.get('/api/data', (req, res) => {
-    db.all('SELECT * FROM test', [], (err, rows) => {
+    db.all('SELECT * FROM Assignments WHERE Class_ID = ?', [], (err, rows) => {
        if (err) {
             res.status(500).send(err.message);
             return;
@@ -74,18 +76,45 @@ const db = new sqlite3.Database("./my-app-backend/Stuff.sqlite", (err) => {
 // });
 
 
-// Search for rows where the data contains the user's input
 app.get('/api/search', (req, res) => {
-    const { query } = req.query;  // Use query parameters to pass the user's search input
-    db.all('SELECT * FROM test WHERE data LIKE ?', [`%${query}%`], (err, rows) => {
+    const { query, pass } = req.query;  // Destructure both query and pass from req.query
+    
+    // SQL query with placeholders for parameters
+    const sql = "SELECT * FROM Student WHERE User_name = ? AND Password = ?";
+
+    // Use db.all to fetch all matching rows
+    db.all(sql, [query, pass], (err, rows) => {
+        console.log(`Query: ${query}, Pass: ${pass}`); // Log the inputs for debugging
         if (err) {
-            res.status(500).send(err.message);
+            res.status(500).send(err.message); // Send error message if any
             return;
         }
-        res.json(rows);  // Return the matching rows
+        
+        res.json(rows); // Send the matching rows as JSON
     });
 });
 
+app.get('/api/class', (req, res) => {
+    const { Student_ID } = req.query;
+    db.all('SELECT Subjects.Subject_Name, Schedule.Class_ID FROM Schedule JOIN Classes, Subjects ON Schedule.Class_Id = Classes.Class_ID AND Classes.Subject_ID = Subjects.Subject_ID WHERE Schedule.Student_ID = ?', [Student_ID], (err, rows) => {
+        console.log(Student_ID); 
+       if (err) {
+            res.status(500).send(err.message);
+            return;
+         }
+        res.json(rows);
+     });
+ });
+
+ app.get('/api/StudentInfo', (req, res) => {
+    db.get('SELECT Students.Student_ID FROM Students WHERE Students.First_name = ?;', [], (err, rows) => {
+       if (err) {
+            res.status(500).send(err.message);
+            return;
+         }
+        res.json(rows);
+     });
+ });
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
