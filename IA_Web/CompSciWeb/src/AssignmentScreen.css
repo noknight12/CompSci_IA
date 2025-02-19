@@ -3,31 +3,27 @@
     display: flex;
     -ms-flex-align: left;
     flex-direction: row;
-    width: 100vw;
-    height: 100vh;
+  height: 100vh;
+  width: 100vw;
     color: black;
     background-color:rgb(255, 255, 255);;
    
 }
-
-
-
-#book{
-    
-    height: 8vw;
-    width: 8vw;
-    max-width: 150px;
-    max-height: 150px;
+#pages{
+    width: fit-content; 
+    height: 10vh;
 }
+
 
 .btn {
     border: none;
     background-color: transparent;
-    font-weight:normal;
-    font-size:4vh;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+    font-weight:500;
+    font-size:20px;
+    
+    border: none;
+    outline: none ;
+    box-shadow: none ;
     display: inline-block;
     color: black;
   }
@@ -56,7 +52,7 @@
 
 #verticalLine{
    
-    height: 100vh;
+    height: 100%;
     width: 2px;
     background-color: rgb(184, 184, 184);
     
@@ -64,11 +60,8 @@
 }
 
 #dataPanel{
-    width: 85vw; 
-    height: 90vh;
-    background-color: rgb(255, 255, 255);
-   
-   
-   
+  
+  padding: 30px;
+   width: fit-content;
     
 }

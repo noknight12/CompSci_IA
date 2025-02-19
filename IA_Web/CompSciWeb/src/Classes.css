@@ -3,4 +3,54 @@
     -ms-flex-align: left;
     flex-direction: row;
     flex-wrap: wrap;
+    
+}
+
+.classes{
+
+    background-color: transparent;
+    color: black;
+    outline: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+.classes:hover{
+    background-color: rgba(68, 68, 68, 0.16);
+    border: none;
+    outline: none;
+}
+
+.classes:focus{
+    outline: none;
+    box-shadow: none;
+    border: none;
+
+}
+
+.images{
+    max-height:auto;
+    max-width: 100px;
+    
+}
+
+#head{
+    
+   
+    font-weight:500;
+    font-size:25px;
+    padding: 10px;
+ 
+    
+}
+
+
+
+
+hr{
+    border:solid;
+    border-color: rgb(138, 138, 138);
+    border-width: 1.5px;
+    border-style: solid;
 }

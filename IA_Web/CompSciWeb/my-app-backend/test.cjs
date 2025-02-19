@@ -100,7 +100,15 @@ app.get('/api/class', (req, res) => {
             res.status(500).send(err.message);
             return;
          }
-        res.json(rows);
+         
+            const products = rows.map((row) => ({
+                id: row.Class_ID,
+                name: row.Subject_Name,
+               
+                image: row.Icon ? `data:image/png;base64,${Buffer.from(row.Icon).toString("base64")}` : null,
+            })); 
+         
+         res.json(products);
      });
  });
 

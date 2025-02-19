@@ -25,7 +25,7 @@ function App() {
      <Routes>
       <Route path="/" element={<Nothing/>}>
 
-      <Route index element={<LogIn />}  />
+      <Route index element={<AssginmentScreen />}  />
       
       
       
