@@ -96,8 +96,20 @@ app.get('/api/search', (req, res) => {
 
 app.get('/api/class', (req, res) => {
     const { Student_ID } = req.query;
-    db.all('SELECT Subjects.Subject_Name, Schedule.Class_ID FROM Schedule JOIN Classes, Subjects ON Schedule.Class_Id = Classes.Class_ID AND Classes.Subject_ID = Subjects.Subject_ID WHERE Schedule.Student_ID = ?', [Student_ID], (err, rows) => {
+    db.all('SELECT Classes.Icon, Subjects.Subject_Name, Schedule.Class_ID FROM Schedule JOIN Classes, Subjects ON Schedule.Class_Id = Classes.Class_ID AND Classes.Subject_ID = Subjects.Subject_ID WHERE Schedule.Student_ID = ?', [Student_ID], (err, rows) => {
         console.log(Student_ID); 
+       if (err) {
+            res.status(500).send(err.message);
+            return;
+         }
+        res.json(rows);
+     });
+ });
+
+ app.get('/api/assignment', (req, res) => {
+    const { Class_ID } = req.query;
+    db.all('SELECT Assignment.Name, Assignment.Assignment_ID FROM Assignment WHERE Assignment.Class_ID = ?', [Class_ID], (err, rows) => {
+        console.log(Class_ID); 
        if (err) {
             res.status(500).send(err.message);
             return;
