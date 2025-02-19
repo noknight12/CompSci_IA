@@ -4,29 +4,46 @@ import './Classes.css'
 
 const Classes =() =>{
 
-    const [data, setData] = useState([]);
+    const [products, setProducts] = useState([]);
     const num =1;
    useEffect(() =>{
         axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
+        
+        
+        
+       
         .then(response => {
+           
             
-            console.log(response.data)
-            setData(response.data)
+            
+           setProducts(response.data)
+            console.log(products)
         })
         .catch(error => {
             console.error('Error fetching data:', error);
             setData([]);  // Clear the data if an error occurs
         });
+
+
               
       }, []);
 return<>
+    
+<h1 id="head">Classes</h1>
 
-<button >hi</button>
 
  <ul id='bob'>
-                    {data.map(item=> (
+ {products.map((product) => (
+    <button className="classes" key={product.id}>{product.image ? (
+        <img className="images" src={product.image} alt={product.name}  />
+    ) : (
+        <p>No Image Available</p>
+    )} <h3>{product.name}</h3></button>
+                       
+                            
+                            
+                            
                         
-                        <button id='items' key={item.Class_ID} >{item.Icon}{item.Subject_Name} {item.Class_ID} hi</button>
                     ))}
                      
     </ul>

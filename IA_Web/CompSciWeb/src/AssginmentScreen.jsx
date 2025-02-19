@@ -29,12 +29,11 @@ const AssginmentScreen = () => {
                 
               </p>
           
-              
               </div>
               <div id='verticalLine'></div>
     
-              <div id="dataPanel">
-
+          
+                
                 <div id='AssignmentsData' className="data">Assignments
 
                   <div id='icon'>
@@ -44,9 +43,9 @@ const AssginmentScreen = () => {
                 <div id='ClassesData' className="data"> <Classes/></div>
                 <div id='messagesData' className="data">hiii</div>
 
+                
 
-              </div>
-
+              
              
 
               </div>

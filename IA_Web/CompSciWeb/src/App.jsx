@@ -18,13 +18,14 @@ function App() {
 
   return (
     <>
+   
     {
     
      <BrowserRouter>
      <Routes>
       <Route path="/" element={<Nothing/>}>
 
-      <Route index element={<LogIn />}  />
+      <Route index element={<AssginmentScreen />}  />
       
       
       
@@ -34,6 +35,8 @@ function App() {
       </Route>
      </Routes>
      </BrowserRouter>
+     
+    
      
      }
 
