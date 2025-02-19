@@ -26,7 +26,7 @@ return<>
  <ul id='bob'>
                     {data.map(item=> (
                         
-                        <button id='items' key={item.Class_ID} >{item.Subject_Name} {item.Class_ID} hi</button>
+                        <button id='items' key={item.Class_ID} >{item.Icon}{item.Subject_Name} {item.Class_ID} hi</button>
                     ))}
                      
     </ul>
