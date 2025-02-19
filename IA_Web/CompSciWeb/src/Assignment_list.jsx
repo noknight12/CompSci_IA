@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import './Classes.css'
+import './Assignment_list.css'
 
-const Assignments =() =>{
+const Assignment_list =() =>{
 
     const [data, setData] = useState([]);
     const num =1;
@@ -21,12 +21,13 @@ const Assignments =() =>{
       }, []);
 return<>
 
-<button >hi</button>
+<h1 id="header">Assignments</h1>
 
- <ul id='bob'>
+ <ul id='list'>
                     {data.map(item=> (
                         
-                        <button id='items' key={item.Class_ID} >{item.Subject_Name} {item.Class_ID} hi</button>
+                        <button id='items' key={item.Assignment_ID} >{item.Name}-{item.Subject_Name}</button>
+                       
                     ))}
                      
     </ul>
@@ -36,4 +37,4 @@ return<>
 
 }
 
-export default Assignments
+export default Assignment_list

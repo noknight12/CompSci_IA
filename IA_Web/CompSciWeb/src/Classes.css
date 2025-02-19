@@ -54,3 +54,7 @@ hr{
     border-width: 1.5px;
     border-style: solid;
 }
+
+#ClassData{
+    display: none;
+}

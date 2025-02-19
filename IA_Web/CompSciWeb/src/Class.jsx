@@ -1,11 +1,12 @@
-
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Class =() =>{
 
  const [data, setData] = useState([]);
- 
-    useEffect(() =>{
-        axios.get('http://localhost:3001/api/chats', { params: { Student_ID: num}})
+ const num =  localStorage.getItem("currentClass")
+    const getPosts=() =>{
+        axios.get('http://localhost:3001/api/posts', { params: { Class_ID: num}})
         .then(response => {
             
             console.log(response.data)
@@ -16,23 +17,21 @@ const Class =() =>{
             setData([]);  // Clear the data if an error occurs
         });
               
-      }, []);
+      };
 
     return<>
     
-    <div id="icon">
 
-    </div>
-    <div id="pageblock">
 
     {data.map(item=> (
                         
-         <button id='items' key={item.Class_ID} >{item.Subject_Name} {item.Class_ID} hi</button>
+         <button id='items' key={item.Post_ID} >{item.content}</button>
         ))}
 
 
-    </div>
+    
     </>
 
 
 }
+export default Class

@@ -114,7 +114,7 @@ app.get('/api/class', (req, res) => {
 
  app.get('/api/assignment', (req, res) => {
     const { Class_ID } = req.query;
-    db.all('SELECT Assignment.Name, Assignment.Assignment_ID FROM Assignment WHERE Assignment.Class_ID = ?', [Class_ID], (err, rows) => {
+    db.all('SELECT Assignment.Name, Assignment.Assignment_ID, Subjects.Subject_Name FROM Assignment JOIN Schedule, Subjects, Classes ON Schedule.Class_ID = Assignment.Class_ID AND  Schedule.Class_Id = Classes.Class_ID AND Classes.Subject_ID = Subjects.Subject_ID WHERE Schedule.Student_ID = ?', [Class_ID], (err, rows) => {
         console.log(Class_ID); 
        if (err) {
             res.status(500).send(err.message);
@@ -126,6 +126,18 @@ app.get('/api/class', (req, res) => {
 
  app.get('/api/StudentInfo', (req, res) => {
     db.get('SELECT Students.Student_ID FROM Students WHERE Students.First_name = ?;', [], (err, rows) => {
+       if (err) {
+            res.status(500).send(err.message);
+            return;
+         }
+        res.json(rows);
+     });
+ });
+
+ app.get('/api/posts', (req, res) => {
+    const { Class_ID } = req.query;
+    db.get('Select * FROM Post WHERE Class_ID = ?', [Class_ID], (err, rows) => {
+        console.log(Class_ID); 
        if (err) {
             res.status(500).send(err.message);
             return;

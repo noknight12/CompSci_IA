@@ -3,6 +3,8 @@ import toggleElement from './Visibilty.js'
 import VariableManager from "./VariableManager.js";
 import './AssignmentScreen.css'
 import Classes from "./Classes.jsx";
+import Assignment_list from "./Assignment_list.jsx";
+
 
 
 
@@ -34,11 +36,9 @@ const AssginmentScreen = () => {
     
           
                 
-                <div id='AssignmentsData' className="data">Assignments
-
-                  <div id='icon'>
-                   <img src="src\Class_One.png" id="book"></img>
-                  </div>
+                <div id='AssignmentsData' className="data">
+                <Assignment_list/>
+                  
                 </div>
                 <div id='ClassesData' className="data"> <Classes/></div>
                 <div id='messagesData' className="data">hiii</div>
