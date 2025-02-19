@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from '../node_modules/axios';
 import VariableManager from "./VariableManager";
-
+import './LogIn.css';
 import { useNavigate, Outlet, Link  } from 'react-router-dom';
 
 function LogIn(){
@@ -56,10 +56,10 @@ function LogIn(){
 
   return (
     <div style={styles.container}>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <h2 style={styles.header}>Login</h2>
+      <form id="form" onSubmit={handleSubmit}>
+        <h2 id="header">Login</h2>
         {error && <p style={styles.error}>{error}</p>}
-        <div style={styles.field}>
+        <div id="field">
           <label>UserName</label>
           <input
             type="text"
@@ -92,22 +92,22 @@ function LogIn(){
 
 const styles = {
   container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    backgroundColor: "#f7f7f7",
+  borderradius: "25px",
+  background: "#73AD21",
+  padding: "20px",
+  width: "200px",
+  height: "150px",
   },
   form: {
-    padding: "20px",
-    backgroundColor: "#fff",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-    borderRadius: "5px",
-    width: "300px",
+    borderradius: "25px",
+  background: "#73AD21",
+  padding: "20px",
+  width: "200px",
+  height: "150px",
   },
   header: {
     textAlign: "center",
-    marginBottom: "20px",
+    
   },
   field: {
     marginBottom: "15px",

@@ -19,7 +19,7 @@ function App() {
   return (
     <>
     {
-    /*
+    
      <BrowserRouter>
      <Routes>
       <Route path="/" element={<Nothing/>}>
@@ -34,10 +34,10 @@ function App() {
       </Route>
      </Routes>
      </BrowserRouter>
-     */
+     
      }
 
-    <AssginmentScreen />
+    
 
      
     </>
