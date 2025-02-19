@@ -55,35 +55,41 @@ function LogIn(){
   };
 
   return (
-    <div style={styles.container}>
+    <div id="container">
+      <div id="box">
+      <div id="shadow"></div>
       <form id="form" onSubmit={handleSubmit}>
+      
         <h2 id="header">Login</h2>
         {error && <p style={styles.error}>{error}</p>}
-        <div id="field">
+        <div className="field">
           <label>UserName</label>
           <input
+            className="input"
             type="text"
             placeholder="Enter your Username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={styles.input}
+            
           />
         </div>
-        <div style={styles.field}>
+        <div className="field">
           <label>Password</label>
           <input
             type="text"
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
+            className="input"
           />
         </div>
-        <button type="submit" style={styles.button} onClick={handleSearch}>
+        <button id="hi"type="submit" onClick={handleSearch}>
           Login
         </button>
        
       </form>
+      </div>
+     
       <Outlet />
     </div>
   
@@ -92,16 +98,16 @@ function LogIn(){
 
 const styles = {
   container: {
-  borderradius: "25px",
+  
   background: "#73AD21",
-  padding: "20px",
-  width: "200px",
-  height: "150px",
+  
+  width: "100vw",
+  height: "100vh",
   },
   form: {
     borderradius: "25px",
   background: "#73AD21",
-  padding: "20px",
+  
   width: "200px",
   height: "150px",
   },
@@ -119,15 +125,7 @@ const styles = {
     border: "1px solid #ccc",
     borderRadius: "4px",
   },
-  button: {
-    width: "100%",
-    padding: "10px",
-    backgroundColor: "#007BFF",
-    color: "#fff",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  },
+
   error: {
     color: "red",
     marginBottom: "10px",
