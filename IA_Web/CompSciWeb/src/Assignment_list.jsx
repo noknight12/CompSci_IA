@@ -6,6 +6,10 @@ const Assignment_list =() =>{
 
     const [data, setData] = useState([]);
     const num =1;
+    const [count, setCount] = useState(0);
+    const [file, setFile] = useState(null);
+  const [message, setMessage] = useState("");
+
    useEffect(() =>{
         axios.get('http://localhost:3001/api/assignment', { params: { Class_ID: num}})
         .then(response => {
@@ -17,6 +21,15 @@ const Assignment_list =() =>{
             console.error('Error fetching data:', error);
             setData([]);  // Clear the data if an error occurs
         });
+              
+      }, []);
+
+      useEffect(async () =>{
+       
+            const response = await fetch("http://localhost:3001/api/count");
+             setCount(await response.json());
+            console.log("Total entries:", count.count);
+          
               
       }, []);
 return<>
@@ -31,6 +44,12 @@ return<>
                     ))}
                      
     </ul>
+
+
+    <div id="assignment">
+
+
+    </div>
 
 </>
 

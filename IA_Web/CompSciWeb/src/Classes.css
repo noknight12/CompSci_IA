@@ -48,6 +48,7 @@
 
 
 
+
 hr{
     border:solid;
     border-color: rgb(138, 138, 138);
@@ -57,4 +58,18 @@ hr{
 
 #ClassData{
     display: none;
+}
+
+.classItems{
+   
+    display: flex;
+    -ms-flex-align: left;
+   align-content: left;
+    flex-direction: column;
+   background-color: rgb(213, 213, 213);
+    height: fit-content;
+    width: 80vw;
+    padding: 15px;  
+    border-radius: 12px;
+   
 }

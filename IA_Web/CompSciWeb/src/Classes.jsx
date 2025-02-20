@@ -27,7 +27,7 @@ const Classes =() =>{
         })
         .catch(error => {
             console.error('Error fetching data:', error);
-            setData([]);  // Clear the data if an error occurs
+            setSelectedProductId([]);  // Clear the data if an error occurs
         });
 
 
@@ -91,12 +91,16 @@ onClick={() => handleClick(product.id)}
 
     <div id="ClassData">
 
-                <ul>
-                {data.map(item=> (
+           <ul>
+           {data.map(item=> (
                         
-                        <button id='items' key={item.Post_ID} >{item.content}</button>
-                       ))}
-                </ul>
+                        <p className='classItems' key={item.Post_ID} >
+                          <div>{item.Sender_Name}</div> 
+                          <div>{item.Content}</div>
+                          </p>
+                       
+                    ))}
+                    </ul>
 
     </div>
 

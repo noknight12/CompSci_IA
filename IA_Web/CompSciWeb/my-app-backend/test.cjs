@@ -136,7 +136,7 @@ app.get('/api/class', (req, res) => {
 
  app.get('/api/posts', (req, res) => {
     const { Class_ID } = req.query;
-    db.get('Select * FROM Post WHERE Class_ID = ?', [Class_ID], (err, rows) => {
+    db.all('Select * FROM Post WHERE Class_ID = ?', [Class_ID], (err, rows) => {
         console.log(Class_ID); 
        if (err) {
             res.status(500).send(err.message);
@@ -145,6 +145,32 @@ app.get('/api/class', (req, res) => {
         res.json(rows);
      });
  });
+
+
+ app.post("/api/upload", upload.single("file"), (req, res) => {
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+  
+    const fileBuffer = req.file.buffer;
+    const fileName = req.file.originalname;
+  
+    db.query("INSERT INTO Submission (Submission_ID, Assignment_ID, File) VALUES (?, ?, ?)", [fileName, fileBuffer], (err) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ message: "Error saving file" });
+      }
+      res.json({ message: "File uploaded successfully!" });
+    });
+  });
+
+  app.get("/api/count", (req, res) => {
+    db.query("SELECT COUNT(*) AS count FROM Submission", (err, results) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ message: "Error retrieving count" });
+      }
+      res.json({ count: results[0].count });
+    });
+  });
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
