@@ -2,12 +2,15 @@
 
     const express = require('express');
     const sqlite3 = require('sqlite3').verbose();
+    const multer = require("multer");
     const cors = require('cors');
+    const fs = require("fs");
     const app = express();
     const PORT = 3001;
 
     app.use(cors());
-app.use(express.json());
+    app.use(express.json());
+
 
 const db = new sqlite3.Database("./my-app-backend/Stuff.sqlite", (err) => {
     if (err) {
@@ -146,6 +149,9 @@ app.get('/api/class', (req, res) => {
      });
  });
 
+ //uploading files
+ const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
  app.post("/api/upload", upload.single("file"), (req, res) => {
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
@@ -153,7 +159,7 @@ app.get('/api/class', (req, res) => {
     const fileBuffer = req.file.buffer;
     const fileName = req.file.originalname;
   
-    db.query("INSERT INTO Submission (Submission_ID, Assignment_ID, File) VALUES (?, ?, ?)", [fileName, fileBuffer], (err) => {
+    db.run("INSERT INTO Submission (Submission_ID, Assignment_ID, File) VALUES (?, ?, ?)", [fileName, fileBuffer], (err) => {
       if (err) {
         console.error("Database error:", err);
         return res.status(500).json({ message: "Error saving file" });
@@ -163,7 +169,7 @@ app.get('/api/class', (req, res) => {
   });
 
   app.get("/api/count", (req, res) => {
-    db.query("SELECT COUNT(*) AS count FROM Submission", (err, results) => {
+    db.get("SELECT COUNT(*) AS count FROM Submission", (err, results) => {
       if (err) {
         console.error("Database error:", err);
         return res.status(500).json({ message: "Error retrieving count" });

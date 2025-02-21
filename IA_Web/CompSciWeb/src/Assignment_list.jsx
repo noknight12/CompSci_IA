@@ -6,6 +6,7 @@ const Assignment_list =() =>{
 
     const [data, setData] = useState([]);
     const num =1;
+    const [currentAssignment, setCurrentAssignment] = useState(0);
     const [count, setCount] = useState(0);
     const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
@@ -24,14 +25,44 @@ const Assignment_list =() =>{
               
       }, []);
 
-      useEffect(async () =>{
-       
+      useEffect(() =>{
+        async function fetchData() {
             const response = await fetch("http://localhost:3001/api/count");
              setCount(await response.json());
             console.log("Total entries:", count.count);
-          
+        }
+        fetchData();
               
       }, []);
+
+      const handleClick =(assignmentID)=>{
+        setCurrentAssignment(assignmentID);
+
+      }
+
+      const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+      };
+    
+      const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!file) {
+          setMessage("Please select a file first.");
+          return;
+        }
+    
+        const formData = new FormData();
+        formData.append(count, currentAssignment, file);
+    
+        try {
+          const response = await axios.post("http://localhost:3001/api/upload", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          });
+          setMessage(response.data.message);
+        } catch (error) {
+          setMessage("Upload failed.");
+        }
+      };
 return<>
 
 <h1 id="header">Assignments</h1>
@@ -39,7 +70,7 @@ return<>
  <ul id='list'>
                     {data.map(item=> (
                         
-                        <button id='items' key={item.Assignment_ID} >{item.Name}-{item.Subject_Name}</button>
+                        <button id='items' key={item.Assignment_ID} onClick={handleClick(item.Assignment_ID)}>{item.Name}-{item.Subject_Name}</button>
                        
                     ))}
                      
@@ -47,7 +78,12 @@ return<>
 
 
     <div id="assignment">
-
+    <h2>Upload a PDF</h2>
+      <form onSubmit={handleSubmit}>
+        <input type="file" accept=".pdf" onChange={handleFileChange} />
+        <button type="submit">Upload</button>
+      </form>
+      {message && <p>{message}</p>}
 
     </div>
 
