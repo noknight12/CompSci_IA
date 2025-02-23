@@ -16,3 +16,13 @@
   
     margin:auto;
 }
+
+#textbox{
+
+    width: 200px;
+    height: 100px;
+    text-align: top;
+
+    vertical-align: top;
+    resize: 'none'
+}

@@ -10,6 +10,7 @@ const GivingFeedBack =() =>{
  const [products, setProducts] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(null);
      const num =1;
+     const [value, setValue] = useState('');
     useEffect(() =>{
         axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
         
@@ -44,6 +45,12 @@ const GivingFeedBack =() =>{
       if(arr == null){
         arr = [];
       }
+
+     
+
+      const Change = (event) => {
+        setValue(event.target.value);
+      }
     return<>
  <div id="parent">
     <div id="feedBack">
@@ -69,13 +76,18 @@ const GivingFeedBack =() =>{
   <option value="audi">Audi</option>
     </select>
     {selected && <p className="mt-2">You selected: {selected}</p>}
+    <label htmlFor="textbox">Enter text: </label>
+    <textarea
+            id='textbox'
+            type="text"
+           
+            value={value} 
+            onChange={Change} 
+            
+          />
       </form>
     </div>
-    <input
-            type="text"
-            placeholder="Enter your password"
-            className="input"
-          />
+   
 
 
 
