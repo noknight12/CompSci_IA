@@ -4,7 +4,7 @@
     const sqlite3 = require('sqlite3').verbose();
     const multer = require("multer");
     const cors = require('cors');
-    const fs = require("fs");
+    const bodyParser = require("body-parser")
     const app = express();
     const PORT = 3001;
 
@@ -128,7 +128,7 @@ app.get('/api/class', (req, res) => {
  });
 
  app.get('/api/StudentInfo', (req, res) => {
-    db.get('SELECT Students.Student_ID FROM Students WHERE Students.First_name = ?;', [], (err, rows) => {
+    db.all('SELECT Students.Student_ID FROM Students WHERE Students.First_name = ?;', [], (err, rows) => {
        if (err) {
             res.status(500).send(err.message);
             return;
@@ -150,33 +150,37 @@ app.get('/api/class', (req, res) => {
  });
 
  //uploading files
- const storage = multer.memoryStorage();
-const upload = multer({ storage });
+ // File upload route
+ const upload = multer({ storage: multer.memoryStorage() });
 
- app.post("/api/upload", upload.single("file"), (req, res) => {
-    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
-  
-    const fileBuffer = req.file.buffer;
-    const fileName = req.file.originalname;
-  
-    db.run("INSERT INTO Submission (Submission_ID, Assignment_ID, File) VALUES (?, ?, ?)", [fileName, fileBuffer], (err) => {
-      if (err) {
-        console.error("Database error:", err);
-        return res.status(500).json({ message: "Error saving file" });
-      }
-      res.json({ message: "File uploaded successfully!" });
-    });
-  });
+ // File upload route
+ app.post('/api/upload', upload.single("fileData"), function (req, res) {
+   if (!req.file) {
+     return res.status(400).json({ message: "No file uploaded" });
+   }
+ 
+   // Example: You already have these IDs, either from the session or elsewhere
+   const assignmentID = req.body.assignmentID;  // Get Assignment ID from form data
+   const submissionID = req.body.submissionID;  // Get Submission ID from form data
+ 
+   const fileData = req.file.buffer;  // Binary data of the uploaded file
 
-  app.get("/api/count", (req, res) => {
-    db.get("SELECT COUNT(*) AS count FROM Submission", (err, results) => {
-      if (err) {
-        console.error("Database error:", err);
-        return res.status(500).json({ message: "Error retrieving count" });
-      }
-      res.json({ count: results[0].count });
-    });
-  });
+   console.log(Buffer.isBuffer(req.file.buffer)); 
+   console.log("Assignment ID:", fileData);
+console.log("Submission ID:", submissionID);
+ 
+   const sql = "INSERT INTO Submission (Submission_ID, Assignment_ID, File) VALUES (?, ?, ?)";
+   db.run(sql, [submissionID, assignmentID, fileData], function (err) {
+     if (err) {
+       console.error("Database error:", err);
+      console.log("hi")
+       return res.status(500).json({ message: "Failed to upload file" });
+      
+     }
+     res.json({ message: "File uploaded successfully" });
+   });
+ });
+ 
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

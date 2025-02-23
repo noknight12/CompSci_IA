@@ -9,6 +9,7 @@ const Assignment_list =() =>{
     const [currentAssignment, setCurrentAssignment] = useState(0);
     const [count, setCount] = useState(0);
     const [file, setFile] = useState(null);
+   
   const [message, setMessage] = useState("");
 
    useEffect(() =>{
@@ -25,67 +26,74 @@ const Assignment_list =() =>{
               
       }, []);
 
-      useEffect(() =>{
-        async function fetchData() {
-            const response = await fetch("http://localhost:3001/api/count");
-             setCount(await response.json());
-            console.log("Total entries:", count.count);
-        }
-        fetchData();
+      useEffect(() => {
+      
+          axios.get('http://localhost:3001/api/count')
+          .then(response => {
               
-      }, []);
+              console.log(response.data)
+              setCount(response.data + 1)
+          })
+          .catch(error => {
+              console.error('Error fetching data:', error);
+              setData([]);  // Clear the data if an error occurs
+          });
+        
+        
+    }, []); 
 
       const handleClick =(assignmentID)=>{
         setCurrentAssignment(assignmentID);
 
       }
 
-      const handleFileChange = (event) => {
+      function handleFileChange(event) {
         setFile(event.target.files[0]);
-      };
+      }
     
-      const handleSubmit = async (event) => {
+      function handleSubmit(event) {
         event.preventDefault();
+    
         if (!file) {
-          setMessage("Please select a file first.");
+          alert("Please select a file");
           return;
         }
     
         const formData = new FormData();
-        formData.append(count, currentAssignment, file);
+        formData.append("fileData", file);
+        formData.append("assignmentID", currentAssignment);
+        formData.append("submissionID", count);
+        console.log(formData.get("assignmentID"));
     
-        try {
-          const response = await axios.post("http://localhost:3001/api/upload", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-          });
-          setMessage(response.data.message);
-        } catch (error) {
-          setMessage("Upload failed.");
-        }
-      };
+        axios.post("http://localhost:3001/api/upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then(response => alert(response.data.message))
+        .catch(error => console.error("Error uploading file:", error));
+      }
+      
 return<>
 
 <h1 id="header">Assignments</h1>
 
  <ul id='list'>
+ <div id="assignment">
+ <form onSubmit={handleSubmit}>
+      <input type="file" onChange={handleFileChange} accept=".pdf" />
+      <button type="submit">Upload</button>
+    </form>
+
+    </div>
                     {data.map(item=> (
                         
-                        <button id='items' key={item.Assignment_ID} onClick={handleClick(item.Assignment_ID)}>{item.Name}-{item.Subject_Name}</button>
+                        <button id='items' key={item.Assignment_ID} onClick={() => handleClick(item.Assignment_ID)}>{item.Name}-{item.Subject_Name}</button>
                        
                     ))}
                      
     </ul>
 
 
-    <div id="assignment">
-    <h2>Upload a PDF</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="file" accept=".pdf" onChange={handleFileChange} />
-        <button type="submit">Upload</button>
-      </form>
-      {message && <p>{message}</p>}
-
-    </div>
+   
 
 </>
 
