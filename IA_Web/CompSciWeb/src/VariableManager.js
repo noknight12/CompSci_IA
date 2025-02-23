@@ -1,7 +1,12 @@
 
+ export const variables = {
 
-export const currentUser = 0;
-export const allClasses = [];
-export const allAssignments =[];
-export const allTeachers =[];
-export const allStudents =[];
+
+ allClasses: [],
+ allAssignments :[],
+ allTeachers :[],
+ allStudents :[],
+};
+//get and set currentUser
+ export default variables
+

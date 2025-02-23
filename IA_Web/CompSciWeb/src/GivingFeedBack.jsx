@@ -1,6 +1,8 @@
 import React from "react";
 import './GivingFeedBack.css'
 import { useState } from "react";
+import { variables } from "./VariableManager.js";
+
 
 const GivingFeedBack =() =>{
 
@@ -13,6 +15,13 @@ const GivingFeedBack =() =>{
         e.preventDefault();
       
       };
+
+      const test =() =>{
+       variables.currentUser = variables.currentUser + 1;
+        console.log(variables.currentUser); 
+
+
+      }
 
     return<>
  <div id="parent">
@@ -37,7 +46,9 @@ const GivingFeedBack =() =>{
 
 
 
-
+      <button onClick={test}>
+        hello
+      </button>
 
     </div>
     
