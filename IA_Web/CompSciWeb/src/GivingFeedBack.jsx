@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
 import './GivingFeedBack.css'
-import { useState } from "react";
-import { variables } from "./VariableManager.js";
-
+import variables from "./VariableManager";
+import Classes from "./Classes";
+import axios from 'axios'
 
 const GivingFeedBack =() =>{
 
     const [selected, setSelected] = useState("");
+ const [products, setProducts] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+     const num =1;
+    useEffect(() =>{
+        axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
+        
+        .then(response => {
+           
+            
+            
+           setProducts(response.data);
+     
+         console.log(products)
+            
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            setSelectedProductId([]);  // Clear the data if an error occurs
+        });
 
+
+              
+      }, []);
+   
+    let arr = [];
+   
     const handleChange = (event) => {
       setSelected(event.target.value);
     };
@@ -16,13 +41,9 @@ const GivingFeedBack =() =>{
       
       };
 
-      const test =() =>{
-       variables.currentUser = variables.currentUser + 1;
-        console.log(variables.currentUser); 
-
-
+      if(arr == null){
+        arr = [];
       }
-
     return<>
  <div id="parent">
     <div id="feedBack">
@@ -34,6 +55,13 @@ const GivingFeedBack =() =>{
     id="cars"
     onChange={handleChange}
     >
+    {products.map((item) => (
+
+        <option key={item.id} value={item.name}>{item.name}</option>
+    ))
+    
+    }
+
 <option value="">Select your option</option>
   <option value="volvo">Volvo</option>
   <option value="saab">Saab</option>
@@ -43,12 +71,13 @@ const GivingFeedBack =() =>{
     {selected && <p className="mt-2">You selected: {selected}</p>}
       </form>
     </div>
+    <input
+            type="text"
+            placeholder="Enter your password"
+            className="input"
+          />
 
 
-
-      <button onClick={test}>
-        hello
-      </button>
 
     </div>
     

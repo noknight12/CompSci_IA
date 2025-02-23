@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './Assignment_list.css'
-
+import variables from './VariableManager'
 const Assignment_list =() =>{
 
     const [data, setData] = useState([]);
@@ -16,8 +16,12 @@ const Assignment_list =() =>{
         axios.get('http://localhost:3001/api/assignment', { params: { Class_ID: num}})
         .then(response => {
             
-            console.log(response.data)
+            
             setData(response.data)
+           
+            variables.allAssignments = data
+            
+            console.log(variables.allAssignments);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -26,7 +30,7 @@ const Assignment_list =() =>{
               
       }, []);
 
-      useEffect(() => {
+      const getCount = () => {
       
           axios.get('http://localhost:3001/api/count')
           .then(response => {
@@ -40,7 +44,7 @@ const Assignment_list =() =>{
           });
         
         
-    }, []); 
+    }
 
       const handleClick =(assignmentID)=>{
         setCurrentAssignment(assignmentID);
@@ -56,6 +60,7 @@ const Assignment_list =() =>{
     
       function handleSubmit(event) {
         event.preventDefault();
+        getCount();
     
         if (!file) {
           alert("Please select a file");

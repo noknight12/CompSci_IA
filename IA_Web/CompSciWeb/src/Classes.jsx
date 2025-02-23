@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './Classes.css'
 import Class from './Class'
+import GivingFeedBack from './GivingFeedBack'
 
 const Classes =() =>{
 
@@ -9,6 +10,7 @@ const Classes =() =>{
     const [selectedProductId, setSelectedProductId] = useState(null);
     const num =1;
      const [data, setData] = useState([]);
+     let arr = [];
     
 
      
@@ -19,8 +21,10 @@ const Classes =() =>{
            
             
             
-           setProducts(response.data)
-            console.log(products)
+           setProducts(response.data);
+     
+         console.log(products)
+            
         })
         .catch(error => {
             console.error('Error fetching data:', error);
