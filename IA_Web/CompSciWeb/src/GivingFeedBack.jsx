@@ -11,6 +11,7 @@ const GivingFeedBack =() =>{
   const [selectedProductId, setSelectedProductId] = useState(null);
      const num =1;
      const [value, setValue] = useState('');
+     const [error, setError] = useState("");
     useEffect(() =>{
         axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
         
@@ -40,6 +41,17 @@ const GivingFeedBack =() =>{
     const handleSubmit = (e) => {
         e.preventDefault();
       
+        setError(""); // Clear previous errors
+    
+        // Basic validation
+        if (selected == "") {
+          setError("no class selected");
+          return;
+        }
+    
+        // Simulate API call
+        console.log("Logging in with:", { email, password });
+        alert("Login successful!");
       };
 
       if(arr == null){
@@ -51,6 +63,10 @@ const GivingFeedBack =() =>{
       const Change = (event) => {
         setValue(event.target.value);
       }
+
+      const handleFeedBack =()=>{
+        
+      }
     return<>
  <div id="parent">
     <div id="feedBack">
@@ -61,20 +77,20 @@ const GivingFeedBack =() =>{
     name="cars" 
     id="cars"
     onChange={handleChange}
+    
     >
+      <option value="">Select your option</option>
     {products.map((item) => (
 
-        <option key={item.id} value={item.name}>{item.name}</option>
+        <option key={item.id} value={item.id}>{item.name}</option>
     ))
     
     }
 
 <option value="">Select your option</option>
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
+
     </select>
+    {error && <p>{error}</p>}
     {selected && <p className="mt-2">You selected: {selected}</p>}
     <label htmlFor="textbox">Enter text: </label>
     <textarea
@@ -85,6 +101,10 @@ const GivingFeedBack =() =>{
             onChange={Change} 
             
           />
+
+          <button id="hi"type="submit" onClick={handleFeedBack}>
+          submit
+        </button>
       </form>
     </div>
    

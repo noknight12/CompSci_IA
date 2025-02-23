@@ -180,6 +180,19 @@ console.log("Submission ID:", submissionID);
      res.json({ message: "File uploaded successfully" });
    });
  });
+
+ app.post('/api/feedBack', (req, res) => {
+    const { Class_ID, Content } = req.body;
+     db.run('INSERT INTO FeedBack(Class_ID, FeedBack_Content)VALUES (?, ?, ?);', [Class_ID, Content], function (err) {
+        if (err) {
+            res.status(500).send(err.message);
+            return;
+        }
+        res.json({ id: this.lastID });
+     });
+ });
+
+
  
 
 app.listen(PORT, () => {
