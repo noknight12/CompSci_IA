@@ -4,6 +4,7 @@ import VariableManager from "./VariableManager.js";
 import './AssignmentScreen.css'
 import Classes from "./Classes.jsx";
 import Assignment_list from "./Assignment_list.jsx";
+import GivingFeedBack from "./GivingFeedBack.jsx";
 
 
 
@@ -34,19 +35,12 @@ const AssginmentScreen = () => {
               </div>
               <div id='verticalLine'></div>
     
-          
-                
                 <div id='AssignmentsData' className="data">
                 <Assignment_list/>
                   
                 </div>
                 <div id='ClassesData' className="data"> <Classes/></div>
-                <div id='messagesData' className="data">hiii</div>
-
-                
-
-              
-             
+                <div id='messagesData' className="data"><GivingFeedBack /></div>
 
               </div>
             

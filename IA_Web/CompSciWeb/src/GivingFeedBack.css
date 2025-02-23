@@ -1,0 +1,18 @@
+
+#parent{
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 250px; /* Full viewport height */
+    width: 350px;
+}
+
+#feedBack
+{
+    border-radius: 10px;
+    height: 200px;
+    width: 300px;
+    background-color: rgb(224, 224, 224);
+  
+    margin:auto;
+}

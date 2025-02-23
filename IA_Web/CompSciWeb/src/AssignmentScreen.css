@@ -10,7 +10,7 @@
    
 }
 #pages{
-    width: fit-content; 
+    width:fit-content; 
     height: 10vh;
 }
 
@@ -59,9 +59,3 @@
     
 }
 
-#dataPanel{
-  
-  padding: 30px;
-   width: fit-content;
-    
-}

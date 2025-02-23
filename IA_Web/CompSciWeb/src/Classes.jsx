@@ -15,9 +15,6 @@ const Classes =() =>{
    useEffect(() =>{
         axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
         
-        
-        
-       
         .then(response => {
            
             

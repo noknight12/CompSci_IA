@@ -44,7 +44,10 @@ const Assignment_list =() =>{
 
       const handleClick =(assignmentID)=>{
         setCurrentAssignment(assignmentID);
-
+        const paragraph = document.getElementById("list");
+        const classData = document.getElementById("assignment");
+        paragraph.style.display = 'none';
+        classData.style.display = 'block';
       }
 
       function handleFileChange(event) {
@@ -77,20 +80,22 @@ return<>
 <h1 id="header">Assignments</h1>
 
  <ul id='list'>
- <div id="assignment">
+
+      {data.map(item=> (
+                        
+        <button id='items' key={item.Assignment_ID} onClick={() => handleClick(item.Assignment_ID)}>{item.Name}-{item.Subject_Name}</button>
+                       
+         ))}
+                     
+    </ul>
+
+    <div id="assignment">
  <form onSubmit={handleSubmit}>
       <input type="file" onChange={handleFileChange} accept=".pdf" />
       <button type="submit">Upload</button>
     </form>
 
     </div>
-                    {data.map(item=> (
-                        
-                        <button id='items' key={item.Assignment_ID} onClick={() => handleClick(item.Assignment_ID)}>{item.Name}-{item.Subject_Name}</button>
-                       
-                    ))}
-                     
-    </ul>
 
 
    
