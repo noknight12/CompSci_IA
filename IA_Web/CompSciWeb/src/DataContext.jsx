@@ -11,7 +11,7 @@ export const DataProvider = ({ children }) => {
     
 
       useEffect(() =>{
-        axios.get('http://localhost:3001/api/assignment', { params: { Class_ID: num}})
+        axios.get('http://localhost:3001/api/assignment', { params: { Student_ID: num}})
         .then(response => {
             
             

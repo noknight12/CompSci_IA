@@ -35,6 +35,9 @@ const Search = () =>{
 
  let error = false;// if true, search cannot happen
 
+
+ const {teacherClasses, setTeacherClasses} = useContext(DataContext); //classes
+
  //choosing the search
  const choosingSearch =(event) =>{
 
