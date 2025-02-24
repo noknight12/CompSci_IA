@@ -7,7 +7,7 @@ import { DataContext } from "./DataContext";
 
 const [students, setStudents] = useState([]);
 const [allSchedules, setAllSchedules] = useState([]);
-const getStudent=()=>{
+const getStudent=()=>{//will be used in another file
     axios.get('http://localhost:3001/api/students')
         
     .then(response => {
@@ -124,6 +124,7 @@ let selectedStudent_ID = 0; //id of selected student
     }
 
     const handleSearch=()=>{
+
         let currentResult = [];
         setResult([]);
         switch(Search) {
@@ -293,7 +294,7 @@ let selectedStudent_ID = 0; //id of selected student
     return<>
 
      {//assignment search
-     
+
      }
 
      <select 
@@ -317,7 +318,7 @@ let selectedStudent_ID = 0; //id of selected student
     
     >
       <option value="0">Select your option</option>
-    {classes.map((item) => (
+    {teacherClasses.map((item) => (
 
         <option key={item.id} value={item.id}>{item.name}</option>
     ))
@@ -348,9 +349,9 @@ let selectedStudent_ID = 0; //id of selected student
          
          >
            <option value="0">Select your option</option>
-              {classes.map((item) => (
+              {teacherAssignments.map((item) => (
      
-              <option key={item.id} value={item.id}>{item.name}</option>
+              <option key={item.Assignment_ID} value={item.Assignment_ID}>{item.name}</option>
               ))
               
              }
@@ -358,6 +359,11 @@ let selectedStudent_ID = 0; //id of selected student
       
      
          </select>
+
+        {//searchButton
+        }
+
+        <button id="SearchBTN" onClick={handleSearch}></button>
     </>
 
 
