@@ -1,37 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './GivingFeedBack.css'
-import variables from "./VariableManager";
-import Classes from "./Classes";
 import axios from 'axios'
+
+import { DataContext } from "./DataContext";
 
 const GivingFeedBack =() =>{
 
     const [selected, setSelected] = useState("");
- const [products, setProducts] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState(null);
+ const {classes, setClasses} = useContext(DataContext); //classes
+
      const num =1;
      const [value, setValue] = useState('');
      const [error, setError] = useState("");
-    useEffect(() =>{
-        axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
-        
-        .then(response => {
-           
-            
-            
-           setProducts(response.data);
-     
-         console.log(products)
-            
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            setSelectedProductId([]);  // Clear the data if an error occurs
-        });
-
-
-              
-      }, []);
+   
    
     let arr = [];
    
@@ -43,20 +24,15 @@ const GivingFeedBack =() =>{
       
         setError(""); // Clear previous errors
     
-        // Basic validation
+        // checks if a class has been selected
         if (selected == "") {
           setError("no class selected");
           return;
         }
     
         // Simulate API call
-        console.log("Logging in with:", { email, password });
-        alert("Login successful!");
+     
       };
-
-      if(arr == null){
-        arr = [];
-      }
 
      
 
@@ -66,12 +42,21 @@ const GivingFeedBack =() =>{
 
       const handleFeedBack =()=>{
         
+        axios.post('http://localhost:3001/api/feedBack', { 
+          Class_ID: selected, 
+          Content: value 
+      })
+      .catch(error => {
+          console.error('Error fetching data:', error);
+          
+      });
+
       }
     return<>
  <div id="parent">
     <div id="feedBack">
       <form  onSubmit={handleSubmit}>
-      <label for="cars">Choose a car:</label>
+      <label  htmlFor="cars">Choose a car:</label>
 
     <select 
     name="cars" 
@@ -80,7 +65,7 @@ const GivingFeedBack =() =>{
     
     >
       <option value="">Select your option</option>
-    {products.map((item) => (
+    {classes.map((item) => (
 
         <option key={item.id} value={item.id}>{item.name}</option>
     ))

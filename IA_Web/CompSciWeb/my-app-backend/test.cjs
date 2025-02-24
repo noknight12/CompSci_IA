@@ -161,7 +161,7 @@ app.get('/api/class', (req, res) => {
  
    // Example: You already have these IDs, either from the session or elsewhere
    const assignmentID = req.body.assignmentID;  // Get Assignment ID from form data
-   const submissionID = req.body.submissionID;  // Get Submission ID from form data
+    // Get Submission ID from form data
  
    const fileData = req.file.buffer;  // Binary data of the uploaded file
 
@@ -170,7 +170,7 @@ app.get('/api/class', (req, res) => {
 console.log("Submission ID:", submissionID);
  
    const sql = "INSERT INTO Submission (Submission_ID, Assignment_ID, File) VALUES (?, ?, ?)";
-   db.run(sql, [submissionID, assignmentID, fileData], function (err) {
+   db.run(sql, [assignmentID, fileData], function (err) {
      if (err) {
        console.error("Database error:", err);
       console.log("hi")
@@ -183,7 +183,7 @@ console.log("Submission ID:", submissionID);
 
  app.post('/api/feedBack', (req, res) => {
     const { Class_ID, Content } = req.body;
-     db.run('INSERT INTO FeedBack(Class_ID, FeedBack_Content)VALUES (?, ?, ?);', [Class_ID, Content], function (err) {
+     db.run('INSERT INTO FeedBack(Class_ID, FeedBack_Content)VALUES (?, ?);', [Class_ID, Content], function (err) {
         if (err) {
             res.status(500).send(err.message);
             return;

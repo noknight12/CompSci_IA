@@ -9,18 +9,18 @@ import Structure from './Structure.jsx'
 import AssginmentScreen from './AssginmentScreen.jsx';
 import LogIn from './LogIn.jsx';
 import Nothing from './nothing.jsx';
-
+import { DataProvider } from "./DataContext";
 // import Home component
 
 
 function App() {
-  localStorage.setItem("username", 1)
+  
 
   return (
     <>
    
-    {
     
+    <DataProvider>
      <BrowserRouter>
      <Routes>
       <Route path="/" element={<Nothing/>}>
@@ -36,9 +36,9 @@ function App() {
      </Routes>
      </BrowserRouter>
      
-    
+     </DataProvider>
      
-     }
+     
 
     
 

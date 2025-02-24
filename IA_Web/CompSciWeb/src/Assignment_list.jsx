@@ -1,50 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import './Assignment_list.css'
 import variables from './VariableManager'
+import { DataContext } from "./DataContext";
+
 const Assignment_list =() =>{
 
-    const [data, setData] = useState([]);
-    const num =1;
+    const {assignments, setAssignments} = useContext(DataContext); 
+   
     const [currentAssignment, setCurrentAssignment] = useState(0);
     const [count, setCount] = useState(0);
     const [file, setFile] = useState(null);
    
-  const [message, setMessage] = useState("");
 
-   useEffect(() =>{
-        axios.get('http://localhost:3001/api/assignment', { params: { Class_ID: num}})
-        .then(response => {
-            
-            
-            setData(response.data)
-           
-            variables.allAssignments = data
-            
-            console.log(variables.allAssignments);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            setData([]);  // Clear the data if an error occurs
-        });
-              
-      }, []);
-
-      const getCount = () => {
-      
-          axios.get('http://localhost:3001/api/count')
-          .then(response => {
-              
-              console.log(response.data)
-              setCount(response.data + 1)
-          })
-          .catch(error => {
-              console.error('Error fetching data:', error);
-              setData([]);  // Clear the data if an error occurs
-          });
-        
-        
-    }
+    
+    
 
       const handleClick =(assignmentID)=>{
         setCurrentAssignment(assignmentID);
@@ -70,7 +40,7 @@ const Assignment_list =() =>{
         const formData = new FormData();
         formData.append("fileData", file);
         formData.append("assignmentID", currentAssignment);
-        formData.append("submissionID", count);
+       
         console.log(formData.get("assignmentID"));
     
         axios.post("http://localhost:3001/api/upload", formData, {
@@ -86,7 +56,7 @@ return<>
 
  <ul id='list'>
 
-      {data.map(item=> (
+      {assignments.map(item=> (
                         
         <button id='items' key={item.Assignment_ID} onClick={() => handleClick(item.Assignment_ID)}>{item.Name}-{item.Subject_Name}</button>
                        

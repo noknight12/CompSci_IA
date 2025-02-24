@@ -1,0 +1,134 @@
+#background{
+    
+    display: flex;
+    -ms-flex-align: left;
+    flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+    color: black;
+    background-color:rgb(255, 255, 255);;
+   
+}
+#pages{
+    width:fit-content; 
+    height: 10vh;
+}
+
+
+.btn {
+    border: none;
+    background-color: transparent;
+    font-weight:500;
+    font-size:20px;
+    
+    border: none;
+    outline: none ;
+    box-shadow: none ;
+    display: inline-block;
+    color: black;
+  }
+  
+  /* On mouse-over */
+  .btn:hover{
+    background-color: rgba(68, 68, 68, 0.16);
+  }
+  .btn:focus{
+    outline: none;
+    box-shadow: none;
+    
+  }
+  
+ #AssignmentsData{
+    display: none;
+    font-size:large;
+    
+}
+#ClassesData{
+    display: none;
+}
+#messagesData{
+    display: none;
+}
+
+#verticalLine{
+   
+    height: 100%;
+    width: 2px;
+    background-color: rgb(184, 184, 184);
+    
+    
+}
+
+
+#bob{
+    display: flex;
+    -ms-flex-align: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+
+.classes{
+
+    background-color: transparent;
+    color: black;
+    outline: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+.classes:hover{
+    background-color: rgba(68, 68, 68, 0.16);
+    border: none;
+    outline: none;
+}
+
+.classes:focus{
+    outline: none;
+    box-shadow: none;
+    border: none;
+
+}
+
+.images{
+    max-height:auto;
+    max-width: 100px;
+    
+}
+
+#head{
+    
+   
+    font-weight:500;
+    font-size:25px;
+    padding: 10px;
+ 
+    
+}
+
+
+hr{
+    border:solid;
+    border-color: rgb(138, 138, 138);
+    border-width: 1.5px;
+    border-style: solid;
+}
+
+#ClassData{
+    display: none;
+}
+
+.classItems{
+   
+    display: flex;
+    -ms-flex-align: left;
+   align-content: left;
+    flex-direction: column;
+   background-color: rgb(213, 213, 213);
+    height: fit-content;
+    width: 80vw;
+    padding: 15px;  
+    border-radius: 12px;
+   
+}

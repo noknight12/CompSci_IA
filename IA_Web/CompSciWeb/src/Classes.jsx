@@ -1,42 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import './Classes.css'
-import Class from './Class'
-import GivingFeedBack from './GivingFeedBack'
+
+import { DataContext } from "./DataContext";
 
 const Classes =() =>{
 
-    const [products, setProducts] = useState([]);
-    const [selectedProductId, setSelectedProductId] = useState(null);
+    const {classes, setProducts} = useContext(DataContext);
+    
     const num =1;
-     const [data, setData] = useState([]);
-     let arr = [];
+     const [posts, setPosts] = useState([]);
+   
     
 
-     
-   useEffect(() =>{
-        axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
-        
-        .then(response => {
-           
-            
-            
-           setProducts(response.data);
-     
-         console.log(products)
-            
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            setSelectedProductId([]);  // Clear the data if an error occurs
-        });
-
-
-              
-      }, []);
+    
 
       const handleClick = (id) => {
-        setSelectedProductId(id);  // Store selected product ID
+         // Store selected product ID
     
         console.log(id);
         console.log("Selected Product ID:", id);  // Log correct value
@@ -52,11 +32,11 @@ const Classes =() =>{
         axios.get('http://localhost:3001/api/posts', { params: { Class_ID: classId }})
             .then(response => {
                 console.log(response.data);
-                setData(response.data);
+                setPosts(response.data);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
-                setData([]);  // Clear the data if an error occurs
+                setPosts([]);  // Clear the data if an error occurs
             });
     };
 
@@ -67,7 +47,7 @@ return<>
 
 
  <ul id='bob'>
- {products.map((product) => (
+ {classes.map((product) => (
 
     
 
@@ -93,7 +73,7 @@ onClick={() => handleClick(product.id)}
     <div id="ClassData">
 
            <ul>
-           {data.map(item=> (
+           {posts.map(item=> (
                         
                         <p className='classItems' key={item.Post_ID} >
                           <div>{item.Sender_Name}</div> 
