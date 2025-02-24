@@ -139,9 +139,12 @@ let selectedStudent_ID = 0; //id of selected student
                     for(let i = 0; i < currentResult.length; i++)
                         {
                             if(currentResult[i].Class_ID == schedule.Class_ID){
-
+                                setResult(prevResult => [...prevResult, currentResult[i]]);
                             }
                     }
+            }
+            else{
+                setResult(currentResult);
             }
 
             
@@ -149,7 +152,21 @@ let selectedStudent_ID = 0; //id of selected student
               // code block
               break;
             case 2://assignment
+                //check if class is a condition
+                if(!selectedClass==0)
+                    {
+                        for(let i = 0; i < teacherAssignments.length; i++)
+                            {
+                            if(teacherAssignments[i].Class_ID == selectedClass)
+                                {
+                                    currentResult.push(teacherAssignments[i])
+                            }
+                                
+                        }
+                }
+
               // code block
+
               break;
            case 3://student
 
