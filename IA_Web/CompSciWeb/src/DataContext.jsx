@@ -27,10 +27,31 @@ export const DataProvider = ({ children }) => {
         });
               
       }, []);
+      //teacher classes
+      const [teacherClasses, setTeacherClasses] = useState([]);
+      useEffect(() =>{
+        axios.get('http://localhost:3001/api/class', { params: { Teacher_ID: num}})
+        
+        .then(response => {
+           
+           setTeacherClasses(response.data);
+     
+            console.log(teacherClasses)
+            
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            setTeacherClasses([]);  // Clear the data if an error occurs
+        });
+
+
+              
+      }, []);
+     
 
       //Classes
    const [classes, setClasses] = useState([]);
-     const [posts, setPosts] = useState([]);
+    
      useEffect(() =>{
         axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
         
@@ -56,8 +77,9 @@ export const DataProvider = ({ children }) => {
 
       //Giving FeedBack
   return (
-    <DataContext.Provider value={{ assignments, setAssignments, classes, setClasses, posts, setPosts}}>
+    <DataContext.Provider value={{ assignments, setAssignments, classes, setClasses, teacherClasses, setTeacherClasses}}>
       {children}
     </DataContext.Provider>
   );
+
 };

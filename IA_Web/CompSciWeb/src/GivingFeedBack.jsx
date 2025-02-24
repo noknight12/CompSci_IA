@@ -59,7 +59,7 @@ const GivingFeedBack =() =>{
       <label  htmlFor="cars">Choose a car:</label>
 
     <select 
-    name="cars" 
+    name="classes" 
     id="cars"
     onChange={handleChange}
     

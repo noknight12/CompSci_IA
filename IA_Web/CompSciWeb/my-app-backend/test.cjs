@@ -96,7 +96,7 @@ app.get('/api/search', (req, res) => {
 });
 
 //getting students
-app.get('/api/class', (req, res) => {
+app.get('/api/students', (req, res) => {
     
     db.all('SELECT Students.Student_ID, Students.First_name, Students.Last_name FROM Students', [], (err, rows) => {
        
@@ -104,9 +104,27 @@ app.get('/api/class', (req, res) => {
             res.status(500).send(err.message);
             return;
          }
-         
-          
             res.json(rows);
+     });
+ });
+ //getting teacher classes
+ app.get('/api/teacherClass', (req, res) => {
+    const { Teacher_ID } = req.query;
+    db.all('SELECT Classes.Class_ID, Classes.Icon, Subjects.Subject_Name FROM Classes JOIN Subjects ON Classes.Subject_ID = Subjects.Subject_ID WHERE Classes.Teacher_ID = ?', [Teacher_ID], (err, rows) => {
+       
+       if (err) {
+            res.status(500).send(err.message);
+            return;
+         }
+         
+            const products = rows.map((row) => ({
+                id: row.Class_ID,
+                name: row.Subject_Name,
+               
+                image: row.Icon ? `data:image/png;base64,${Buffer.from(row.Icon).toString("base64")}` : null,
+            })); 
+         
+         res.json(products);
      });
  });
 
