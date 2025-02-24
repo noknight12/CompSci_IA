@@ -187,6 +187,20 @@ app.get('/api/class', (req, res) => {
      });
  });
 
+ //all schedule
+ app.get('/api/allSchedules', (req, res) => {
+    
+    db.all('SELECT * FROM Schedule', [], (err, rows) => {
+       
+       if (err) {
+            res.status(500).send(err.message);
+            return;
+         }
+            res.json(rows);
+     });
+ });
+
+
  app.get('/api/StudentInfo', (req, res) => {
     db.all('SELECT Students.Student_ID FROM Students WHERE Students.First_name = ?;', [], (err, rows) => {
        if (err) {

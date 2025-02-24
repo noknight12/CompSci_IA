@@ -6,8 +6,26 @@ import { DataContext } from "./DataContext";
 
 
 const [students, setStudents] = useState([]);
+const [allSchedules, setAllSchedules] = useState([]);
 const getStudent=()=>{
     axios.get('http://localhost:3001/api/students')
+        
+    .then(response => {
+       setStudents(response.data);
+ 
+     console.log(students)
+        
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+        setStudents([]);  // Clear the data if an error occurs
+    });
+
+
+}
+
+const getAllSchedules=()=>{
+    axios.get('http://localhost:3001/api/allSchedules')
         
     .then(response => {
        setStudents(response.data);
@@ -87,15 +105,15 @@ let selectedStudent_ID = 0; //id of selected student
          }
     }
 
-    const getSchedule =() =>{
-        axios.get('http://localhost:3001/api/schedule', { params: { Student_ID: selectedStudent}})
+    const getSchedule =(student) =>{
+        axios.get('http://localhost:3001/api/schedule', { params: { Student_ID: student}})
         
         .then(response => {
            
             
             
            setSchedule(response.data);
-     
+            
          console.log(classes)
             
         })
@@ -132,9 +150,9 @@ let selectedStudent_ID = 0; //id of selected student
                     currentResult = teacherClasses;
             }
 
-            if(!selectedStudent == 0)
+            if(!selectedStudent == "")
                 {
-                    getSchedule;
+                    getSchedule(selectedStudent);
 
                     for(let i = 0; i < currentResult.length; i++)
                         {
@@ -164,11 +182,49 @@ let selectedStudent_ID = 0; //id of selected student
                                 
                         }
                 }
+                else{
+                    currentResult = teacherAssignments;
+                }
+
+
+                if(!selectedStudent == "")
+                    {
+                        getSchedule(selectedStudent);
+    
+                        for(let i = 0; i < currentResult.length; i++)
+                            {
+                                if(currentResult[i].Class_ID == schedule.Class_ID){
+                                    setResult(prevResult => [...prevResult, currentResult[i]]);
+                                }
+                        }
+                }
+                else{
+                    setResult(currentResult);
+                }
 
               // code block
 
               break;
            case 3://student
+                getAllSchedules;
+           if(!selectedAssignment == 0) //checking if assignments is a condition
+            {
+                let targetAssignment =0
+               for(let i = 0; i < teacherAssignments.length; i++){
+                if(teacherAssignments[i].Assignment_ID == selectedAssignment){
+                    targetAssignment = i;
+                    break;
+                }
+                for (let i = 0; i < allSchedules.length; i++)
+                    {
+                      if(allSchedules[i].Class_ID == teacherAssignments[targetAssignment].Class_ID)  
+                        {
+
+                      }
+                }
+
+               } 
+           }
 
             break;
             default:
@@ -243,7 +299,7 @@ let selectedStudent_ID = 0; //id of selected student
          onChange={handleAssignment}
          
          >
-           <option value="">Select your option</option>
+           <option value="0">Select your option</option>
               {classes.map((item) => (
      
               <option key={item.id} value={item.id}>{item.name}</option>
