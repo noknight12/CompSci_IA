@@ -107,6 +107,19 @@ app.get('/api/students', (req, res) => {
             res.json(rows);
      });
  });
+
+ //getting schedules
+ app.get('/api/schedule', (req, res) => {
+    const { Student_ID } = req.query;
+    db.get('SELECT * FROM Schedule WHERE Schedule.Student_ID =?', [Student_ID], (err, rows) => {
+       
+       if (err) {
+            res.status(500).send(err.message);
+            return;
+         }
+            res.json(rows);
+     });
+ });
  //getting teacher classes
  app.get('/api/teacherClass', (req, res) => {
     const { Teacher_ID } = req.query;

@@ -35,10 +35,15 @@ const Search = () =>{
 
  let error = false;// if true, search cannot happen
 
+const [result, setResult] = useState([]);
+
+let selectedStudent_ID = 0; //id of selected student
 
  const {teacherClasses, setTeacherClasses} = useContext(DataContext); //classes
 
- const [teacherAssignments, setTeacherAssignments] = useContext(DataContext); //assignments
+ const {teacherAssignments, setTeacherAssignments} = useContext(DataContext); //assignments
+
+ const [schedule, setSchedule] = useState({}); //schedule of student
 
 
  //choosing the search
@@ -47,7 +52,6 @@ const Search = () =>{
     setSearch(parseInt(event.target.value, 10));
 
 }
-
 
     //choosing the class
     const handleClass =(event) =>{
@@ -67,6 +71,7 @@ const Search = () =>{
               let name = students[i].First_name + " " + students[i].Last_name
                   if(name == selectedStudent){
                     valid = true;
+                    selectedStudent_ID = students[i].Student_ID;
                     break;
                   }
             
@@ -82,17 +87,71 @@ const Search = () =>{
          }
     }
 
+    const getSchedule =() =>{
+        axios.get('http://localhost:3001/api/schedule', { params: { Student_ID: selectedStudent}})
+        
+        .then(response => {
+           
+            
+            
+           setSchedule(response.data);
+     
+         console.log(classes)
+            
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            setSchedule([]);  // Clear the data if an error occurs
+        });
+    }
+
     const handleSearch=()=>{
+        let currentResult = [];
         switch(Search) {
-            case 1:
-                
+          
+            case 1: //class
+                if(!selectedAssignment == 0){
+                    //finding the assignment class id
+                    let target = 0;
+                    for(let i =0; i< teacherAssignments.length; i++){
+                        if( teacherAssignments[i].Assignment_ID = selectedAssignment)
+                            {
+                                target = i;
+                        }
+                        //finding the class
+                        for(let i =0; i< teacherClasses.length; i++){
+                            if( teacherClasses[i].Class_ID = teacherAssignments[target].Class_ID)
+                                {
+                                  currentResult.push(teacherClasses[i])
+                            }
+                      
+                    }
+                }
+            }
+            else{
+                    currentResult = teacherClasses;
+            }
+
+            if(!selectedStudent == 0)
+                {
+                    getSchedule;
+
+                    for(let i = 0; i < currentResult.length; i++)
+                        {
+                            if(currentResult[i].Class_ID == schedule.Class_ID){
+
+                            }
+                    }
+            }
+
+            
 
               // code block
               break;
-            case 2:
+            case 2://assignment
               // code block
               break;
-           case 3:
+           case 3://student
 
             break;
             default:
