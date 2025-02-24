@@ -37,6 +37,7 @@ const Search = () =>{
 
 
  const {teacherClasses, setTeacherClasses} = useContext(DataContext); //classes
+ 
 
  //choosing the search
  const choosingSearch =(event) =>{
