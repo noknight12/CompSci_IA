@@ -25,12 +25,33 @@ export const DataProvider = ({ children }) => {
             console.error('Error fetching data:', error);
             setAssignments([]);  // Clear the data if an error occurs
         });
-              
+    
       }, []);
+
+       //teacher assignments
+       const [teacherAssignments, setTeacherAssignments] = useState([]);
+       useEffect(() =>{
+        axios.get('http://localhost:3001/api/teacherAssignment', { params: { Student_ID: num}})
+        .then(response => {
+            
+            
+            setTeacherAssignments(response.data)
+           
+           
+            
+            console.log(teacherAssignments);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            setAssignments([]);  // Clear the data if an error occurs
+        });
+    
+      }, []);
+
       //teacher classes
       const [teacherClasses, setTeacherClasses] = useState([]);
       useEffect(() =>{
-        axios.get('http://localhost:3001/api/class', { params: { Teacher_ID: num}})
+        axios.get('http://localhost:3001/api/teacherClass', { params: { Teacher_ID: num}})
         
         .then(response => {
            
@@ -77,7 +98,7 @@ export const DataProvider = ({ children }) => {
 
       //Giving FeedBack
   return (
-    <DataContext.Provider value={{ assignments, setAssignments, classes, setClasses, teacherClasses, setTeacherClasses}}>
+    <DataContext.Provider value={{ assignments, setAssignments, classes, setClasses, teacherClasses, setTeacherClasses, teacherAssignments, setTeacherAssignments}}>
       {children}
     </DataContext.Provider>
   );
