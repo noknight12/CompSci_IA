@@ -5,6 +5,25 @@ import axios from 'axios'
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
+
+  //getting all schedules
+  useEffect(() =>{
+    axios.get('http://localhost:3001/api/assignment', { params: { Student_ID: num}})
+    .then(response => {
+        
+        
+        setAssignments(response.data)
+       
+       
+        
+        console.log(assignments);
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+        setAssignments([]);  // Clear the data if an error occurs
+    });
+
+  }, []);
     //Assignment_list
    const [assignments, setAssignments] = useState([]);
       const num =1;

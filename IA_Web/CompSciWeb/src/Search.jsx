@@ -125,6 +125,7 @@ let selectedStudent_ID = 0; //id of selected student
 
     const handleSearch=()=>{
         let currentResult = [];
+        setResult([]);
         switch(Search) {
           
             case 1: //class
@@ -209,6 +210,7 @@ let selectedStudent_ID = 0; //id of selected student
                 getAllSchedules;
            if(!selectedAssignment == 0) //checking if assignments is a condition
             {
+                let targetSchedules = [];
                 let targetAssignment =0
                for(let i = 0; i < teacherAssignments.length; i++){
                 if(teacherAssignments[i].Assignment_ID == selectedAssignment){
@@ -219,15 +221,60 @@ let selectedStudent_ID = 0; //id of selected student
                     {
                       if(allSchedules[i].Class_ID == teacherAssignments[targetAssignment].Class_ID)  
                         {
+                            targetSchedules.push(allSchedules[i].Student_ID);
 
                       }
                 }
 
+                for(let i = 0; i < targetSchedules.length; i++)
+                {
+                    for(let y = 0; y < students.length; i++)
+                    {
+                        if(students[y].Student_ID == targetSchedules[i]){
+                        currentResult.push(students[y]);
+                        }
+                    }
+                }
+
+
+
                } 
+           }
+           else{
+            currentResult = students;
+
+           }
+
+           if(!selectedClass == 0)//check if class is a condition
+           {
+
+            let targetSchedules = [];
+            for(let i =0; i < currentResult.length; i++){
+
+                for(let y = 0; y < allSchedules.length; y++)
+                    {
+                        if(currentResult[i].student == allSchedules.Class_ID[y])
+                        {
+                            targetSchedules.push(allSchedules[y]);
+                        }
+                }
+            }
+
+            for(let i =0; i <targetSchedules.length; i++){
+                for(let y = 0; y < teacherClasses.length; y++)
+                {
+                    if(teacherClasses[y].Class_ID == targetSchedules[i].Class_ID)
+                        {
+                            setResult(prevResult => [...prevResult, teacherClasses[y]]);
+                          }
+                }
+            }
+
            }
 
             break;
             default:
+                //no working
               // code block
           }
           
@@ -246,6 +293,7 @@ let selectedStudent_ID = 0; //id of selected student
     return<>
 
      {//assignment search
+     
      }
 
      <select 
