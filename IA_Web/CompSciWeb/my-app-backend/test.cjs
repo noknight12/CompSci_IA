@@ -95,6 +95,23 @@ app.get('/api/search', (req, res) => {
     });
 });
 
+//getting students
+app.get('/api/class', (req, res) => {
+    
+    db.all('SELECT Students.Student_ID, Students.First_name, Students.Last_name FROM Students', [], (err, rows) => {
+       
+       if (err) {
+            res.status(500).send(err.message);
+            return;
+         }
+         
+          
+            res.json(rows);
+     });
+ });
+
+ //getting classes
+
 app.get('/api/class', (req, res) => {
     const { Student_ID } = req.query;
     db.all('SELECT Classes.Icon, Subjects.Subject_Name, Schedule.Class_ID FROM Schedule JOIN Classes, Subjects ON Schedule.Class_Id = Classes.Class_ID AND Classes.Subject_ID = Subjects.Subject_ID WHERE Schedule.Student_ID = ?', [Student_ID], (err, rows) => {
