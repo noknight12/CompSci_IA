@@ -21,6 +21,7 @@ export const getStudent=()=>{//will be used in another file
         students = [];  // Clear the data if an error occurs
     });
 
+    console.log("aifh")
 
 }
 
@@ -33,8 +34,8 @@ const Search = () =>{
 
  const [selectedClass, setSelectedClass] = useState(0); //set class
 
- const [selectedStudent, setSelectedStudent] = useState('');//set student
-
+ const [Input, setInput] = useState("");//set student
+ let selectedStudent = "";
  const [selectedAssignment, setSelectedAssignment] = useState(0);//set assignment
 
  let error = false;// if true, search cannot happen
@@ -63,14 +64,14 @@ const getAllSchedules=()=>{
     axios.get('http://localhost:3001/api/allSchedules')
         
     .then(response => {
-       setStudents(response.data);
+       allSchedules=response.data;
  
-     console.log(students)
+     
         
     })
     .catch(error => {
         console.error('Error fetching data:', error);
-        setStudents([]);  // Clear the data if an error occurs
+        allSchedules=[];  // Clear the data if an error occurs
     });
 }
 
@@ -83,13 +84,18 @@ const getAllSchedules=()=>{
 
     //choosing the student
     const handleStudent =(event) =>{
-        setSelectedStudent(event.target.value);
+        setInput(event.target.value)
+         selectedStudent = event.target.value;
+      
         if(selectedStudent != "")
             {
+                console.log("jafh")
             let valid = false;
              for (let i = 0; i < students.length; i++)
                 {
               let name = students[i].First_name + " " + students[i].Last_name
+                    console.log(name)
+                    console.log(selectedStudent)
                   if(name == selectedStudent){
                     valid = true;
                     selectedStudent_ID = students[i].Student_ID;
@@ -103,9 +109,13 @@ const getAllSchedules=()=>{
              }
              else{
                 error = false;
+                localStorage.setItem("studentName", selectedStudent)
              }
+             console.log(selectedStudent);
 
          }
+
+         console.log(error);
     }
 
     const getSchedule =(student) =>{
@@ -116,8 +126,9 @@ const getAllSchedules=()=>{
             
             
            setSchedule(response.data);
+           console.log(schedule.Class_ID +",");
             
-         console.log(classes)
+        
             
         })
         .catch(error => {
@@ -130,6 +141,8 @@ const getAllSchedules=()=>{
 
         let currentResult = [];
         result = []
+        console.log(teacherAssignments);
+        selectedStudent = localStorage.getItem("studentName");
         
         switch(selectedSearch) {
           
@@ -143,22 +156,26 @@ const getAllSchedules=()=>{
                                 target = i;
                         }
                         //finding the class
-                        for(let i =0; i< teacherClasses.length; i++){
-                            if( teacherClasses[i].Class_ID = teacherAssignments[target].Class_ID)
-                                {
-                                  currentResult.push(teacherClasses[i])
-                            }
                       
                     }
+                    for(let i =0; i< teacherClasses.length; i++){
+                        if( teacherClasses[i].Class_ID = teacherAssignments[target].Class_ID)
+                            {
+                              currentResult.push(teacherClasses[i])
+                            
+                        }
                 }
             }
             else{
                     currentResult = teacherClasses;
+                    console.log("hfa");
             }
 
             if(!selectedStudent == "")
                 {
+                    console.log(selectedStudent);
                     getSchedule(selectedStudent);
+                    console.log(schedule);
 
                     for(let i = 0; i < currentResult.length; i++)
                         {
@@ -169,6 +186,7 @@ const getAllSchedules=()=>{
             }
             else{
                 result.push(currentResult);
+                console.log(selectedStudent);
             }
 
             
@@ -346,7 +364,7 @@ const getAllSchedules=()=>{
           <input
             type="text"
             placeholder="Enter your password"
-            value={selectedStudent}
+            value={Input}
             onChange={handleStudent}
             id="selectStudent"
           />

@@ -3,7 +3,7 @@ import { getStudent } from "./Search";
 {
 
   if(name == "search"){
-    getStudent;
+    getStudent();
   }
   console.log(name);
   const paragraph = document.getElementById(name);
