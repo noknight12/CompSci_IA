@@ -211,6 +211,13 @@ const getAllSchedules=()=>{
                 console.log(selectedStudent);
             }
 
+            result = result.map((row) => ({
+                id: row.Class_ID,
+                name: row.Subject_Name,
+               
+               
+            })); 
+
             
 
               // code block
@@ -253,6 +260,13 @@ const getAllSchedules=()=>{
                     result = currentResult;
                    console.log("wuhoh")
                 }
+
+                result = result.map((row) => ({
+                    id: row.Assignment_ID,
+                    name: row.Name,
+                   
+                   
+                })); 
 
               // code block
 
@@ -323,6 +337,13 @@ const getAllSchedules=()=>{
 
            }
 
+           result = result.map((row) => ({
+            id: row.Student_ID,
+            name: row.First_name + " " + row.Lirst_name
+           
+           
+        })); 
+
             break;
             default:
                 //no working
@@ -331,7 +352,7 @@ const getAllSchedules=()=>{
 
           console.log(result);
 
-          
+         
           
 
     }
@@ -426,6 +447,15 @@ const getAllSchedules=()=>{
         
         }
 
+
+<ul>
+{result.map((item) => (
+     
+     <li key={item.id}>{item.name}</li>
+     ))
+     
+    }
+</ul>
       
     </>
 
