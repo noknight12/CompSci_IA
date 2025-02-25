@@ -13,7 +13,7 @@ export const getStudent=()=>{//will be used in another file
     .then(response => {
        students =response.data;
  
-     console.log(students)
+   
         
     })
     .catch(error => {
@@ -39,8 +39,7 @@ const Search = () =>{
  const [selectedAssignment, setSelectedAssignment] = useState(0);//set assignment
 
  let error = false;// if true, search cannot happen
-
- let allSchedules = [];
+ const[allSchedules, setAllSchedules]  = useState([]);
 
 let result = [];
 
@@ -61,17 +60,18 @@ let selectedStudent_ID = 0; //id of selected student
 }
 
 const getAllSchedules=()=>{
+    console.log("afau");
     axios.get('http://localhost:3001/api/allSchedules')
         
     .then(response => {
-       allSchedules=response.data;
- 
+       setAllSchedules(response.data);
+        
      
         
     })
     .catch(error => {
         console.error('Error fetching data:', error);
-        allSchedules=[];  // Clear the data if an error occurs
+        setAllSchedules([]);  // Clear the data if an error occurs
     });
 }
 
@@ -110,6 +110,8 @@ const getAllSchedules=()=>{
              else{
                 error = false;
                 localStorage.setItem("studentName", selectedStudent)
+                localStorage.setItem("studentID", selectedStudent_ID)
+                console.log(selectedStudent_ID + "af");
              }
              console.log(selectedStudent);
 
@@ -143,6 +145,10 @@ const getAllSchedules=()=>{
         result = []
         console.log(teacherAssignments);
         selectedStudent = localStorage.getItem("studentName");
+        selectedStudent_ID = localStorage.getItem("studentID");
+        getAllSchedules();
+
+    
         
         switch(selectedSearch) {
           
@@ -173,15 +179,30 @@ const getAllSchedules=()=>{
 
             if(!selectedStudent == "")
                 {
-                    console.log(selectedStudent);
-                    getSchedule(selectedStudent);
-                    console.log(schedule);
+                    console.log(selectedStudent_ID + "af");
+                    let targetSchedules = [];
 
-                    for(let i = 0; i < currentResult.length; i++)
+                    // get the schedules from the student
+                    for(let i = 0; i< allSchedules.length; i++)
                         {
-                            if(currentResult[i].Class_ID == schedule.Class_ID){
-                                result.push(currentResult[i]);
+                            if(allSchedules[i].Student_ID == selectedStudent_ID){
+                                console.log(currentResult.length)
+                                targetSchedules.push(allSchedules[i])
+                              
+                              
                             }
+                    }
+                    console.log(targetSchedules)
+                    console.log(currentResult)
+                    for(let i = 0; i < currentResult.length; i++)//checking if the classes are the same as the schedules
+                        {
+                            for(let y = 0; y < targetSchedules.length; y++){
+                                if(currentResult[i].id == targetSchedules[y].Class_ID){
+                                    result.push(currentResult[i]);
+                                    console.log("affa");
+                                }
+                            }
+                           
                     }
             }
             else{
