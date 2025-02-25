@@ -61,7 +61,7 @@ const TeacherScreen = () => {
                   Classes
                 </button>
                 <br></br>
-                <button className ='btn messages'  onClick={() => toggleElement("messagesData")}>
+                <button className ='btn messages'  onClick={() => toggleElement("search")}>
                     Search
                 </button>
 
@@ -123,7 +123,7 @@ onClick={() => handleClick(product.id)}
 
 
                     </div>
-                <div id='searchData' className="data">hi
+                <div id='search' className="data">hi
 
                   <Search/>
                 </div>

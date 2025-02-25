@@ -4,23 +4,58 @@ import axios from 'axios'
 
 import { DataContext } from "./DataContext";
 
-let students = []
-let allSchedules = []
+let students = [];
 
-const getStudent=()=>{//will be used in another file
+
+export const getStudent=()=>{//will be used in another file
     axios.get('http://localhost:3001/api/students')
         
     .then(response => {
-       setStudents(response.data);
+       students =response.data;
  
      console.log(students)
         
     })
     .catch(error => {
         console.error('Error fetching data:', error);
-        setStudents([]);  // Clear the data if an error occurs
+        students = [];  // Clear the data if an error occurs
     });
 
+
+}
+
+
+
+
+const Search = () =>{
+
+ const [selectedSearch, setSearch] = useState(0); //set search
+
+ const [selectedClass, setSelectedClass] = useState(0); //set class
+
+ const [selectedStudent, setSelectedStudent] = useState('');//set student
+
+ const [selectedAssignment, setSelectedAssignment] = useState(0);//set assignment
+
+ let error = false;// if true, search cannot happen
+
+ let allSchedules = [];
+
+let result = [];
+
+let selectedStudent_ID = 0; //id of selected student
+
+ const {teacherClasses, setTeacherClasses} = useContext(DataContext); //classes
+
+ const {teacherAssignments, setTeacherAssignments} = useContext(DataContext); //assignments
+
+ const [schedule, setSchedule] = useState({}); //schedule of student
+
+
+ //choosing the search
+ const choosingSearch =(event) =>{
+
+    setSearch(parseInt(event.target.value, 10));
 
 }
 
@@ -37,38 +72,6 @@ const getAllSchedules=()=>{
         console.error('Error fetching data:', error);
         setStudents([]);  // Clear the data if an error occurs
     });
-
-
-}
-
-const Search = () =>{
-
- const [selectedSearch, setSearch] = useState(0); //set search
-
- const [selectedClass, setSelectedClass] = useState(0); //set class
-
- const [selectedStudent, setSelectedStudent] = useState('');//set student
-
- const [selectedAssignment, setSelectedAssignment] = useState(0);//set assignment
-
- let error = false;// if true, search cannot happen
-
-const [result, setResult] = useState([]);
-
-let selectedStudent_ID = 0; //id of selected student
-
- const {teacherClasses, setTeacherClasses} = useContext(DataContext); //classes
-
- const {teacherAssignments, setTeacherAssignments} = useContext(DataContext); //assignments
-
- const [schedule, setSchedule] = useState({}); //schedule of student
-
-
- //choosing the search
- const choosingSearch =(event) =>{
-
-    setSearch(parseInt(event.target.value, 10));
-
 }
 
     //choosing the class
@@ -126,8 +129,9 @@ let selectedStudent_ID = 0; //id of selected student
     const handleSearch=()=>{
 
         let currentResult = [];
-        setResult([]);
-        switch(Search) {
+        result = []
+        
+        switch(selectedSearch) {
           
             case 1: //class
                 if(!selectedAssignment == 0){
@@ -159,12 +163,12 @@ let selectedStudent_ID = 0; //id of selected student
                     for(let i = 0; i < currentResult.length; i++)
                         {
                             if(currentResult[i].Class_ID == schedule.Class_ID){
-                                setResult(prevResult => [...prevResult, currentResult[i]]);
+                                result.push(currentResult[i]);
                             }
                     }
             }
             else{
-                setResult(currentResult);
+                result.push(currentResult);
             }
 
             
@@ -173,6 +177,8 @@ let selectedStudent_ID = 0; //id of selected student
               break;
             case 2://assignment
                 //check if class is a condition
+                console.log(2);
+                console.log(selectedClass);
                 if(!selectedClass==0)
                     {
                         for(let i = 0; i < teacherAssignments.length; i++)
@@ -196,12 +202,14 @@ let selectedStudent_ID = 0; //id of selected student
                         for(let i = 0; i < currentResult.length; i++)
                             {
                                 if(currentResult[i].Class_ID == schedule.Class_ID){
-                                    setResult(prevResult => [...prevResult, currentResult[i]]);
+                                    result.push(currentResult[i]);
                                 }
                         }
+                       
                 }
                 else{
-                    setResult(currentResult);
+                    result.push(currentResult);
+                   
                 }
 
               // code block
@@ -266,7 +274,7 @@ let selectedStudent_ID = 0; //id of selected student
                 {
                     if(teacherClasses[y].Class_ID == targetSchedules[i].Class_ID)
                         {
-                            setResult(prevResult => [...prevResult, teacherClasses[y]]);
+                            result.push(teacherClasses[y]);
                           }
                 }
             }
@@ -278,6 +286,10 @@ let selectedStudent_ID = 0; //id of selected student
                 //no working
               // code block
           }
+
+          console.log(result);
+
+          
           
 
     }
@@ -320,7 +332,7 @@ let selectedStudent_ID = 0; //id of selected student
       <option value="0">Select your option</option>
     {teacherClasses.map((item) => (
 
-        <option key={item.id} value={item.id}>{item.name}</option>
+        <option key={item.id} value={item.id}>{item.id}{item.name}</option>
     ))
     
     }
@@ -351,7 +363,7 @@ let selectedStudent_ID = 0; //id of selected student
            <option value="0">Select your option</option>
               {teacherAssignments.map((item) => (
      
-              <option key={item.Assignment_ID} value={item.Assignment_ID}>{item.name}</option>
+              <option key={item.Assignment_ID} value={item.Assignment_ID}>{item.Name}</option>
               ))
               
              }
@@ -363,7 +375,16 @@ let selectedStudent_ID = 0; //id of selected student
         {//searchButton
         }
 
-        <button id="SearchBTN" onClick={handleSearch}></button>
+        <button id="SearchBTN" onClick={handleSearch}>Search</button>
+
+
+
+        {//result
+        
+        
+        }
+
+      
     </>
 
 

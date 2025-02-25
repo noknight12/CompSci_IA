@@ -1,6 +1,10 @@
-
+import { getStudent } from "./Search";
  const toggleElement = (name) =>
 {
+
+  if(name == "search"){
+    getStudent;
+  }
   console.log(name);
   const paragraph = document.getElementById(name);
   const allData = document.getElementsByClassName("data");
