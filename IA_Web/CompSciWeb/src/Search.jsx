@@ -144,7 +144,8 @@ const getAllSchedules=()=>{
         let currentResult = [];
         result = []
         console.log(teacherAssignments);
-        selectedStudent = localStorage.getItem("studentName");
+        selectedStudent = Input;
+        console.log(selectedStudent);
         selectedStudent_ID = localStorage.getItem("studentID");
         getAllSchedules();
 
@@ -206,7 +207,7 @@ const getAllSchedules=()=>{
                     }
             }
             else{
-                result.push(currentResult);
+                result =currentResult;
                 console.log(selectedStudent);
             }
 
@@ -228,6 +229,7 @@ const getAllSchedules=()=>{
                             }
                                 
                         }
+                        console.log(currentResult)
                 }
                 else{
                     currentResult = teacherAssignments;
@@ -236,6 +238,7 @@ const getAllSchedules=()=>{
 
                 if(!selectedStudent == "")
                     {
+                        console.log(selectedStudent)
                         getSchedule(selectedStudent);
     
                         for(let i = 0; i < currentResult.length; i++)
@@ -247,8 +250,8 @@ const getAllSchedules=()=>{
                        
                 }
                 else{
-                    result.push(currentResult);
-                   
+                    result = currentResult;
+                   console.log("wuhoh")
                 }
 
               // code block

@@ -2,7 +2,7 @@ import { getStudent } from "./Search";
  const toggleElement = (name) =>
 {
 
-  if(name == "search"){
+  if(name == "SearchData"){
     getStudent();
   }
   console.log(name);
