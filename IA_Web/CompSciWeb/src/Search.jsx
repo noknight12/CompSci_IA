@@ -245,14 +245,31 @@ const getAllSchedules=()=>{
 
                 if(!selectedStudent == "")
                     {
-                        console.log(selectedStudent)
+                        let targetSchedules = [];
+
+                        // get the schedules from the student
+                        for(let i = 0; i< allSchedules.length; i++)
+                            {
+                                if(allSchedules[i].Student_ID == selectedStudent_ID){
+                                    console.log(currentResult.length)
+                                    targetSchedules.push(allSchedules[i])
+                                  
+                                  
+                                }
+                        }
+                        console.log(selectedStudent + "hello")
                         getSchedule(selectedStudent);
     
                         for(let i = 0; i < currentResult.length; i++)
                             {
-                                if(currentResult[i].Class_ID == schedule.Class_ID){
-                                    result.push(currentResult[i]);
+                                for(let y = 0; y < targetSchedules.length; y++){
+                                    if(currentResult[i].Class_ID == targetSchedules[y].Class_ID){
+                                        console.log("fafawfsf")
+                                        result.push(currentResult[i]);
+                                    }
+
                                 }
+                                
                         }
                        
                 }
@@ -314,27 +331,47 @@ const getAllSchedules=()=>{
            {
 
             let targetSchedules = [];
+            console.log(currentResult)
+          
             for(let i =0; i < currentResult.length; i++){
 
                 for(let y = 0; y < allSchedules.length; y++)
                     {
-                        if(currentResult[i].student == allSchedules.Class_ID[y])
+                        if(currentResult[i].Student_ID == allSchedules[y].Student_ID)
                         {
+                            console.log("afafgawge")
                             targetSchedules.push(allSchedules[y]);
                         }
                 }
             }
 
+            console.log(targetSchedules);
+
+            let targetStudents = [];
+
             for(let i =0; i <targetSchedules.length; i++){
-                for(let y = 0; y < teacherClasses.length; y++)
-                {
-                    if(teacherClasses[y].Class_ID == targetSchedules[i].Class_ID)
+               
+                    if(targetSchedules[i].Class_ID == selectedClass)
                         {
-                            result.push(teacherClasses[y]);
+                            targetStudents.push(targetSchedules[i]);
                           }
+                
+            }
+            console.log(targetStudents);
+
+            for(let i =0; i <targetStudents.length; i++){
+
+                for(let y =0; y <currentResult.length; y++)
+                if(targetStudents[i].Student_ID == currentResult[y].Student_ID){
+                    result.push(currentResult[y])
                 }
+
             }
 
+           }
+           else{
+
+            result = currentResult
            }
 
            result = result.map((row) => ({
