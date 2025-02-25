@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
 import './GivingFeedBack.css'
 import axios from 'axios'
-import Select from "react-select";
+
 import { DataContext } from "./DataContext";
 
+let students = []
+let allSchedules = []
 
-const [students, setStudents] = useState([]);
-const [allSchedules, setAllSchedules] = useState([]);
 const getStudent=()=>{//will be used in another file
     axios.get('http://localhost:3001/api/students')
         

@@ -50,7 +50,7 @@ export const DataProvider = ({ children }) => {
        //teacher assignments
        const [teacherAssignments, setTeacherAssignments] = useState([]);
        useEffect(() =>{
-        axios.get('http://localhost:3001/api/teacherAssignment', { params: { Student_ID: num}})
+        axios.get('http://localhost:3001/api/teacherAssignment', { params: { Teacher_ID: num}})
         .then(response => {
             
             

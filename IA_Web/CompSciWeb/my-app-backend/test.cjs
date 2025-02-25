@@ -143,9 +143,9 @@ app.get('/api/students', (req, res) => {
 
  //getting teacher assignments
  app.get('/api/teacherAssignment', (req, res) => {
-    const { Student_ID } = req.query;
-    db.all('SELECT Assignment.Assignment_ID, Assignment.Class_ID, Assignment.Name, Assignment.Description, Assignment.Completed FROM Assignment JOIN Classes ON Assignment.Class_ID = Classes.Class_ID WHERE Classes.Teacher_ID =1', [Student_ID], (err, rows) => {
-        console.log(Class_ID); 
+    const { Teacher_ID } = req.query;
+    db.all('SELECT Assignment.Assignment_ID, Assignment.Class_ID, Assignment.Name, Assignment.Description, Assignment.Completed FROM Assignment JOIN Classes ON Assignment.Class_ID = Classes.Class_ID WHERE Classes.Teacher_ID = ?', [Teacher_ID], (err, rows) => {
+       
        if (err) {
             res.status(500).send(err.message);
             return;
@@ -178,7 +178,7 @@ app.get('/api/class', (req, res) => {
  app.get('/api/assignment', (req, res) => {
     const { Student_ID } = req.query;
     db.all('SELECT Assignment.Name, Assignment.Assignment_ID, Subjects.Subject_Name FROM Assignment JOIN Schedule, Subjects, Classes ON Schedule.Class_ID = Assignment.Class_ID AND  Schedule.Class_Id = Classes.Class_ID AND Classes.Subject_ID = Subjects.Subject_ID WHERE Schedule.Student_ID = ?', [Student_ID], (err, rows) => {
-        console.log(Class_ID); 
+      
        if (err) {
             res.status(500).send(err.message);
             return;

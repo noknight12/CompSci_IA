@@ -1,8 +1,7 @@
-import Body from './Body'
-import StudentScreen from './StudentScreen'
+
 
 import React from 'react';
-import ReactDOM from "react-dom/client";
+import TeacherScreen from './TeacherScreen.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Structure from './Structure.jsx'
@@ -10,6 +9,7 @@ import AssginmentScreen from './AssginmentScreen.jsx';
 import LogIn from './LogIn.jsx';
 import Nothing from './nothing.jsx';
 import { DataProvider } from "./DataContext";
+
 // import Home component
 
 
@@ -25,7 +25,7 @@ function App() {
      <Routes>
       <Route path="/" element={<Nothing/>}>
 
-      <Route index element={<AssginmentScreen />}  />
+      <Route index element={<TeacherScreen />}  />
       
       
       

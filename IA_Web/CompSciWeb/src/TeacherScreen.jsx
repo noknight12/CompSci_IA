@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from 'react'
 import toggleElement from './Visibilty.js'
 import axios from 'axios'
 import './TeacherScreen.css'
-
-
+import { DataContext } from "./DataContext";
+import Search from './Search.jsx';
 
 
 
 const TeacherScreen = () => {
-    const {classes, setProducts} = useContext(DataContext);
+    const {teacherClasses, setTeacherClasses} = useContext(DataContext);
     
     const num =1;
      const [posts, setPosts] = useState([]);
@@ -81,7 +81,7 @@ const TeacherScreen = () => {
 
 
 <ul id='bob'>
-{classes.map((product) => (
+{teacherClasses.map((product) => (
 
    
 
@@ -123,7 +123,10 @@ onClick={() => handleClick(product.id)}
 
 
                     </div>
-                <div id='searchData' className="data">hi</div>
+                <div id='searchData' className="data">hi
+
+                  <Search/>
+                </div>
 
               </div>
             
