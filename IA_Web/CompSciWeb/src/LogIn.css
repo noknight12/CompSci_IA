@@ -25,7 +25,7 @@
     flex-direction: column;
    
     width: 300px;
-    height: 325px;
+    height: 350px;
     border-color: black;
     border-width: 2px;
     border-style: solid;
@@ -42,7 +42,7 @@
   align-items: center;
   margin-left: 120px;
     width: 200px;
-    height: 325px;
+    height: 350px;
     border-color: black;
     border-width: 2px;
     border-style: solid;
@@ -82,5 +82,8 @@ padding-top: 2%;
 .field{
 padding-left: 5%;
 
+}
+#buttons{
+    margin: auto;
 }
 

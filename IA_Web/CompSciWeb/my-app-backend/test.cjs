@@ -77,11 +77,11 @@ const db = new sqlite3.Database("./my-app-backend/Stuff.sqlite", (err) => {
 // });
 
 
-app.get('/api/search', (req, res) => {
+app.get('/api/searchStudent', (req, res) => {
     const { query, pass } = req.query;  // Destructure both query and pass from req.query
     
     // SQL query with placeholders for parameters
-    const sql = "SELECT * FROM Student WHERE User_name = ? AND Password = ?";
+    const sql = "SELECT * FROM Students WHERE Students.First_name = ? AND Students.Password = ?";
 
     // Use db.all to fetch all matching rows
     db.all(sql, [query, pass], (err, rows) => {
@@ -93,6 +93,24 @@ app.get('/api/search', (req, res) => {
         
         res.json(rows); // Send the matching rows as JSON
     });
+});
+
+app.get('/api/searchTeacher', (req, res) => {
+   const { query, pass } = req.query;  // Destructure both query and pass from req.query
+   
+   // SQL query with placeholders for parameters
+   const sql = "SELECT * FROM Teachers WHERE First_Name = ? AND Password = ?";
+
+   // Use db.all to fetch all matching rows
+   db.all(sql, [`'${query}'`, `'${pass}'`], (err, rows) => {
+       console.log(`Query: ${query}, Pass: ${pass}`); // Log the inputs for debugging
+       if (err) {
+           res.status(500).send(err.message); // Send error message if any
+           return;
+       }
+       
+       res.json(rows); // Send the matching rows as JSON
+   });
 });
 
 //getting students

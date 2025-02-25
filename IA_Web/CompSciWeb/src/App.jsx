@@ -25,13 +25,16 @@ function App() {
      <Routes>
       <Route path="/" element={<Nothing/>}>
 
-      <Route index element={<TeacherScreen />}  />
+      <Route index element={<LogIn />}  />
       
       
       
       </Route>
-      <Route path="/index" element={<Structure/>} >
-      <Route index element={<AssginmentScreen />} />
+      <Route path="/student" element={<AssginmentScreen />} >
+      
+      </Route>
+      <Route path="/teacher" element={<TeacherScreen />} >
+     
       </Route>
      </Routes>
      </BrowserRouter>

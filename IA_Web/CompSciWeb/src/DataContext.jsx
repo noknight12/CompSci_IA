@@ -5,9 +5,14 @@ import axios from 'axios'
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
+  
+  const [num, setNum] = useState(1);
+
+ 
 
   //getting all schedules
   useEffect(() =>{
+    setNum(localStorage.getItem("id"));
     axios.get('http://localhost:3001/api/assignment', { params: { Student_ID: num}})
     .then(response => {
         
@@ -26,10 +31,11 @@ export const DataProvider = ({ children }) => {
   }, []);
     //Assignment_list
    const [assignments, setAssignments] = useState([]);
-      const num =1;
+    
     
 
       useEffect(() =>{
+        setNum(localStorage.getItem("id"));
         axios.get('http://localhost:3001/api/assignment', { params: { Student_ID: num}})
         .then(response => {
             
@@ -50,6 +56,7 @@ export const DataProvider = ({ children }) => {
        //teacher assignments
        const [teacherAssignments, setTeacherAssignments] = useState([]);
        useEffect(() =>{
+        setNum(localStorage.getItem("id"));
         axios.get('http://localhost:3001/api/teacherAssignment', { params: { Teacher_ID: num}})
         .then(response => {
             
@@ -70,6 +77,7 @@ export const DataProvider = ({ children }) => {
       //teacher classes
       const [teacherClasses, setTeacherClasses] = useState([]);
       useEffect(() =>{
+        setNum(localStorage.getItem("id"));
         axios.get('http://localhost:3001/api/teacherClass', { params: { Teacher_ID: num}})
         
         .then(response => {
@@ -93,6 +101,7 @@ export const DataProvider = ({ children }) => {
    const [classes, setClasses] = useState([]);
     
      useEffect(() =>{
+      setNum(localStorage.getItem("id"));
         axios.get('http://localhost:3001/api/class', { params: { Student_ID: num}})
         
         .then(response => {

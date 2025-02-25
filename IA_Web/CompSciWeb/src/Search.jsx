@@ -33,6 +33,8 @@ const Search = () =>{
  const [selectedSearch, setSearch] = useState(0); //set search
 
  const [selectedClass, setSelectedClass] = useState(0); //set class
+ const [IDHolder, setIDHolder] = useState(0); //set class
+ const[finalResult, setFinalResult] = useState([]);
 
  const [Input, setInput] = useState("");//set student
  let selectedStudent = "";
@@ -111,6 +113,7 @@ const getAllSchedules=()=>{
                 error = false;
                 localStorage.setItem("studentName", selectedStudent)
                 localStorage.setItem("studentID", selectedStudent_ID)
+                setIDHolder(selectedStudent_ID)
                 console.log(selectedStudent_ID + "af");
              }
              console.log(selectedStudent);
@@ -147,6 +150,7 @@ const getAllSchedules=()=>{
         selectedStudent = Input;
         console.log(selectedStudent);
         selectedStudent_ID = localStorage.getItem("studentID");
+        selectedStudent_ID = IDHolder
         getAllSchedules();
 
     
@@ -208,17 +212,17 @@ const getAllSchedules=()=>{
             }
             else{
                 result =currentResult;
-                console.log(selectedStudent);
+                console.log(result);
             }
 
             result = result.map((row) => ({
-                id: row.Class_ID,
-                name: row.Subject_Name,
+                id: row.id,
+                name: row.name,
                
                
             })); 
-
-            
+            setFinalResult(result);
+            console.log(finalResult)
 
               // code block
               break;
@@ -282,8 +286,9 @@ const getAllSchedules=()=>{
                     id: row.Assignment_ID,
                     name: row.Name,
                    
-                   
+                  
                 })); 
+                setFinalResult(result);
 
               // code block
 
@@ -376,10 +381,11 @@ const getAllSchedules=()=>{
 
            result = result.map((row) => ({
             id: row.Student_ID,
-            name: row.First_name + " " + row.Lirst_name
+            name: row.First_name + " " + row.Last_name
            
            
         })); 
+        setFinalResult(result);
 
             break;
             default:
@@ -445,7 +451,7 @@ const getAllSchedules=()=>{
      }
           <input
             type="text"
-            placeholder="Enter your password"
+            placeholder="Enter Student"
             value={Input}
             onChange={handleStudent}
             id="selectStudent"
@@ -486,7 +492,8 @@ const getAllSchedules=()=>{
 
 
 <ul>
-{result.map((item) => (
+    Results:
+{finalResult.map((item) => (
      
      <li key={item.id}>{item.name}</li>
      ))

@@ -10,21 +10,24 @@ function LogIn(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState("");
+  const [isStudent, setIsStudent] = useState(true);
   const navigate = useNavigate();
   
   const handleSearch = () => {
-    if (email) {
-        axios.get('http://localhost:3001/api/search', { params: { query: email, pass: password }})
+    if (email && isStudent) {
+        axios.get('http://localhost:3001/api/searchStudent', { params: { query: email, pass: password }})
             .then(response => {
                 setData(response.data);
                 console.log(email);
                 console.log(password);
-              console.log(data.length);
-                   if(data.length == 1){
+              console.log(response.data);
+              console.log("hi");
+                   if(response.data.length === 1){
                   
                     
-                      VariableManager(email);
-                      navigate("/index");
+                    
+                    
+                      navigate("/student");
                     console.log("hi");
                    
                    }
@@ -34,6 +37,30 @@ function LogIn(){
                 console.error('Error fetching data:', error);
                 setData([]);  // Clear the data if an error occurs
             });
+    }
+    else if(email && !isStudent){
+
+      axios.get('http://localhost:3001/api/searchTeacher', { params: { query: email, pass: password }})
+      .then(response => {
+          setData(response.data);
+          console.log(email);
+          console.log(password);
+        console.log(data.length);
+             if(data.length == 1){
+            
+              
+                VariableManager(email);
+                
+                navigate("/teacher");
+              console.log("hi");
+             
+             }
+          
+      })
+      .catch(error => {
+          console.error('Error fetching data:', error);
+          setData([]);  // Clear the data if an error occurs
+      });
     }
 
 
@@ -86,9 +113,15 @@ function LogIn(){
         <button id="hi"type="submit" onClick={handleSearch}>
           Login
         </button>
-       
+        <div id="buttons">
+        <button className="student but"onClick={() => setIsStudent(true)}>Student</button>
+        <button className="teacher but"onClick={() => setIsStudent(false)}>Teacher</button>
+        </div>
       </form>
+
       </div>
+      
+    
      
       <Outlet />
     </div>
