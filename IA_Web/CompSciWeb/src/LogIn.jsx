@@ -45,11 +45,11 @@ function LogIn(){
           setData(response.data);
           console.log(email);
           console.log(password);
-        console.log(data.length);
-             if(data.length == 1){
+          console.log(response.data);
+             if(response.data.length == 1){
             
               
-                VariableManager(email);
+              
                 
                 navigate("/teacher");
               console.log("hi");

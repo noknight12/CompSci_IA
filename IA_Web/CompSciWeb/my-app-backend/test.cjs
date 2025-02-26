@@ -102,7 +102,7 @@ app.get('/api/searchTeacher', (req, res) => {
    const sql = "SELECT * FROM Teachers WHERE First_Name = ? AND Password = ?";
 
    // Use db.all to fetch all matching rows
-   db.all(sql, [`'${query}'`, `'${pass}'`], (err, rows) => {
+   db.all(sql, [query, pass], (err, rows) => {
        console.log(`Query: ${query}, Pass: ${pass}`); // Log the inputs for debugging
        if (err) {
            res.status(500).send(err.message); // Send error message if any

@@ -368,7 +368,7 @@ const getAllSchedules=()=>{
 
                 for(let y =0; y <currentResult.length; y++)
                 if(targetStudents[i].Student_ID == currentResult[y].Student_ID){
-                    result.push(currentResult[y])
+                    result.push(currentResult[y]);
                 }
 
             }
