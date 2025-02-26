@@ -294,16 +294,18 @@ const getAllSchedules=()=>{
 
               break;
            case 3://student
-                getAllSchedules;
+                
            if(!selectedAssignment == 0) //checking if assignments is a condition
             {
                 let targetSchedules = [];
-                let targetAssignment =0
+                let targetAssignment = 0;
                for(let i = 0; i < teacherAssignments.length; i++){
                 if(teacherAssignments[i].Assignment_ID == selectedAssignment){
                     targetAssignment = i;
                     break;
                 }
+
+                  }
                 for (let i = 0; i < allSchedules.length; i++)
                     {
                       if(allSchedules[i].Class_ID == teacherAssignments[targetAssignment].Class_ID)  
@@ -325,7 +327,7 @@ const getAllSchedules=()=>{
 
 
 
-               } 
+               
            }
            else{
             currentResult = students;

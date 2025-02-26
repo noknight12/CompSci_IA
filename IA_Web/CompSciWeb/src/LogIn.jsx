@@ -38,30 +38,28 @@ function LogIn(){
                 setData([]);  // Clear the data if an error occurs
             });
     }
-    else if(email && !isStudent){
-
-      axios.get('http://localhost:3001/api/searchTeacher', { params: { query: email, pass: password }})
-      .then(response => {
-          setData(response.data);
-          console.log(email);
-          console.log(password);
-        console.log(data.length);
-             if(data.length == 1){
-            
-              
-                VariableManager(email);
-                
-                navigate("/teacher");
-              console.log("hi");
-             
-             }
-          
-      })
-      .catch(error => {
-          console.error('Error fetching data:', error);
-          setData([]);  // Clear the data if an error occurs
-      });
-    }
+    else if (email && !isStudent) {
+      axios.get('http://localhost:3001/api/searchTeacher', { params: { query: email, pass: password } })
+          .then(response => {
+              console.log("Email:", email);
+              console.log("Password:", password);
+              console.log("Response Data Length:", response.data.length);
+              console.log("Raw Response Data:", response.data);
+  
+              setData(response.data); // Update state asynchronously
+  
+              // Use response.data.length directly instead of relying on state update
+              if (response.data.length === 1) {
+                   // Ensure this function exists
+                  console.log("Navigating to /teacher...");
+                  navigate("/teacher");
+              }
+          })
+          .catch(error => {
+              console.error('Error fetching teacher data:', error);
+              setData([]);  // Clear data in case of error
+          });
+  }
 
 
 };
@@ -76,9 +74,7 @@ function LogIn(){
       return;
     }
 
-    // Simulate API call
-    console.log("Logging in with:", { email, password });
-    alert("Login successful!");
+   
   };
 
   return (

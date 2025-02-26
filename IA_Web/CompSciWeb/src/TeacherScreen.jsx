@@ -123,7 +123,7 @@ onClick={() => handleClick(product.id)}
 
 
                     </div>
-                <div id='SearchData' className="data">hi
+                <div id='SearchData' className="data">
 
                   <Search/>
                 </div>

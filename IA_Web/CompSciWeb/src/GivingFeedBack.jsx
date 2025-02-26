@@ -56,11 +56,11 @@ const GivingFeedBack =() =>{
  <div id="parent">
     <div id="feedBack">
       <form  onSubmit={handleSubmit}>
-      <label  htmlFor="cars">Choose a car:</label>
+      <label  htmlFor="classes">Choose a class:</label>
 
     <select 
-    name="classes" 
-    id="cars"
+    className="classes" 
+    id="classes"
     onChange={handleChange}
     
     >
@@ -77,6 +77,7 @@ const GivingFeedBack =() =>{
     </select>
     {error && <p>{error}</p>}
     {selected && <p className="mt-2">You selected: {selected}</p>}
+    <br></br>
     <label htmlFor="textbox">Enter text: </label>
     <textarea
             id='textbox'

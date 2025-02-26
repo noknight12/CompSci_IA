@@ -99,10 +99,10 @@ app.get('/api/searchTeacher', (req, res) => {
    const { query, pass } = req.query;  // Destructure both query and pass from req.query
    
    // SQL query with placeholders for parameters
-   const sql = "SELECT * FROM Teachers WHERE First_Name = ? AND Password = ?";
+   const sql = "SELECT * FROM Teachers WHERE Teachers.First_Name = ? AND Teachers.PassWord = ?";
 
    // Use db.all to fetch all matching rows
-   db.all(sql, [`'${query}'`, `'${pass}'`], (err, rows) => {
+   db.all(sql, [query, pass], (err, rows) => {
        console.log(`Query: ${query}, Pass: ${pass}`); // Log the inputs for debugging
        if (err) {
            res.status(500).send(err.message); // Send error message if any
