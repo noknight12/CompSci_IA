@@ -149,7 +149,7 @@ const getAllSchedules=()=>{
         console.log(teacherAssignments);
         selectedStudent = Input;
         console.log(selectedStudent);
-        selectedStudent_ID = localStorage.getItem("studentID");
+        
         selectedStudent_ID = IDHolder
         getAllSchedules();
 
@@ -262,7 +262,7 @@ const getAllSchedules=()=>{
                                 }
                         }
                         console.log(selectedStudent + "hello")
-                        getSchedule(selectedStudent);
+                        getSchedule(selectedStudent);//might remove
     
                         for(let i = 0; i < currentResult.length; i++)
                             {
@@ -394,9 +394,6 @@ const getAllSchedules=()=>{
           }
 
           console.log(result);
-
-         
-          
 
     }
 
