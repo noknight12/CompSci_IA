@@ -41,11 +41,9 @@ const GivingFeedBack =() =>{
       }
 
       const handleFeedBack =()=>{
-        
-        axios.post('http://localhost:3001/api/feedBack', { 
-          Class_ID: selected, 
-          Content: value 
-      })
+        console.log(selected)
+        console.log(value)
+        axios.post('http://localhost:3001/api/feedBack', {  Class_ID: selected, Content: value })
       .catch(error => {
           console.error('Error fetching data:', error);
           

@@ -242,7 +242,7 @@ app.get('/api/class', (req, res) => {
  });
 
  //uploading files
- // File upload route
+ 
  const upload = multer({ storage: multer.memoryStorage() });
 
  // File upload route
@@ -251,17 +251,17 @@ app.get('/api/class', (req, res) => {
      return res.status(400).json({ message: "No file uploaded" });
    }
  
-   // Example: You already have these IDs, either from the session or elsewhere
-   const assignmentID = req.body.assignmentID;  // Get Assignment ID from form data
-    // Get Submission ID from form data
+   
+   const assignmentID = req.body.assignmentID;  
+    
  
-   const fileData = req.file.buffer;  // Binary data of the uploaded file
+   const fileData = req.file.buffer; 
 
    console.log(Buffer.isBuffer(req.file.buffer)); 
    console.log("Assignment ID:", fileData);
 console.log("Submission ID:", submissionID);
  
-   const sql = "INSERT INTO Submission (Submission_ID, Assignment_ID, File) VALUES (?, ?, ?)";
+   const sql = "INSERT INTO Submission (Submission_ID, Assignment_ID, File) VALUES ( ?, ?)";
    db.run(sql, [assignmentID, fileData], function (err) {
      if (err) {
        console.error("Database error:", err);
@@ -274,16 +274,29 @@ console.log("Submission ID:", submissionID);
  });
 
  app.post('/api/feedBack', (req, res) => {
-    const { Class_ID, Content } = req.body;
-     db.run('INSERT INTO FeedBack(Class_ID, FeedBack_Content)VALUES (?, ?);', [Class_ID, Content], function (err) {
-        if (err) {
-            res.status(500).send(err.message);
-            return;
-        }
-        res.json({ id: this.lastID });
-     });
- });
+   const { Class_ID, Content } = req.body;
 
+   // Validate input
+   if (!Class_ID || !Content) {
+       return res.status(400).json({ error: "Class_ID and Content are required." });
+   }
+
+   console.log("Received feedback:", { Class_ID, Content });
+
+   const query = "INSERT INTO FeedBack (Class_ID, FeedBack_Content) VALUES (?, ?)";
+
+   db.run(query, [Class_ID, Content], function (err) {
+       if (err) {
+           console.error("Database error:", err.message);
+           return res.status(500).json({ error: "Failed to submit feedback." });
+       }
+
+       res.status(201).json({ 
+           message: "Feedback submitted successfully.",
+           feedback_id: this.lastID 
+       });
+   });
+});
 
  
 
